@@ -1,10 +1,15 @@
 package com.temandoaku
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.temandoaku.data.AppDatabase
+import com.temandoaku.data.DoaData
 import com.temandoaku.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,16 +19,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // ViewBinding HARUS di awal
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inisialisasi SharedPrefManager dengan context
-        sharedPrefManager = SharedPrefManager(this)
+        // Room Database
+        val db = AppDatabase.getDatabase(this)
+        val dao = db.doaDao()
 
-        // Update login streak setiap kali app dibuka
+        lifecycleScope.launch {
+            dao.insertAll(DoaData.getAll())
+        }
+
+        // Shared Preference
+        sharedPrefManager = SharedPrefManager(this)
         sharedPrefManager.updateLoginStreak()
 
-        // Load animasi dari resources
+        // Animasi
         val scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up)
         val scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down)
 
@@ -48,11 +60,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AchievementActivity::class.java))
         }
 
-        // Tampilkan streak di main activity jika ada
+        // Tampilkan streak
         val streak = sharedPrefManager.getLoginStreak()
         if (streak > 0) {
-            binding.tvStreak.text = "Streak: $streak hari"
-            binding.tvStreak.visibility = android.view.View.VISIBLE
+            binding.tvStreak.text = "🔥 Streak: $streak hari"
+            binding.tvStreak.visibility = View.VISIBLE
+        } else {
+            binding.tvStreak.visibility = View.GONE
         }
     }
 }
