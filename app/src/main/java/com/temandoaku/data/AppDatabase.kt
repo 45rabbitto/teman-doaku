@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [DoaEntity::class],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -24,7 +24,11 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "doa_database"
-                ).build()
+                )
+
+                    .fallbackToDestructiveMigration()
+                    .build()
+
                 INSTANCE = instance
                 instance
             }

@@ -29,10 +29,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DoaListActivity"
+            android:name=".ui.DoaListActivity"
             android:exported="false" />
         <activity
-            android:name=".DoaDetailActivity"
+            android:name=".ui.DoaDetailActivity"
             android:exported="false" />
         <activity
             android:name=".MinigameActivity"

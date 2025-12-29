@@ -1,4 +1,7 @@
 package com.temandoaku.data
+
+import com.temandoaku.R
+
 object DoaData {
 
     fun getAll(): List<DoaEntity> {
@@ -9,7 +12,8 @@ object DoaData {
                 judul = "Masuk Rumah",
                 arab = "بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا",
                 latin = "Bismillāhi walajnā, wa bismillāhi kharajnā, wa ‘alā rabbinā tawakkalnā",
-                arti = "Dengan nama Allah kami masuk, dengan nama Allah kami keluar, dan kepada Allah Tuhan kami, kami bertawakal."
+                arti = "Dengan nama Allah kami masuk, dengan nama Allah kami keluar, dan kepada Allah Tuhan kami, kami bertawakal.",
+                imageRes = R.drawable.doa_masuk_rumah
             ),
 
             // 2. Keluar Rumah
@@ -17,23 +21,26 @@ object DoaData {
                 judul = "Keluar Rumah",
                 arab = "بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
                 latin = "Bismillāh, tawakkaltu ‘alallāh, lā ḥaula wa lā quwwata illā billāh",
-                arti = "Dengan nama Allah, aku bertawakal kepada Allah. Tidak ada daya dan kekuatan kecuali dengan pertolongan Allah."
+                arti = "Dengan nama Allah, aku bertawakal kepada Allah. Tidak ada daya dan kekuatan kecuali dengan pertolongan Allah.",
+                imageRes = R.drawable.doa_keluar_rumah
             ),
 
-            // 3. Doa Makan
+            // 3. Sebelum Makan
             DoaEntity(
                 judul = "Sebelum Makan",
                 arab = "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ",
                 latin = "Allāhumma bārik lanā fīmā razaqtanā wa qinā ‘adzāban-nār",
-                arti = "Ya Allah, berkahilah kami dalam rezeki yang Engkau berikan dan lindungilah kami dari azab neraka."
+                arti = "Ya Allah, berkahilah kami dalam rezeki yang Engkau berikan dan lindungilah kami dari azab neraka.",
+                imageRes = R.drawable.doa_makan
             ),
 
             // 4. Sesudah Makan
             DoaEntity(
                 judul = "Sesudah Makan",
-                arab = "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
-                latin = "Alḥamdulillāhilladzī aṭ‘amanī hādzā wa razaqanīhi min ghairi ḥaulin minnī wa lā quwwah",
-                arti = "Segala puji bagi Allah yang telah memberiku makanan ini tanpa daya dan kekuatanku."
+                arab = "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ",
+                latin = "Alḥamdulillāhilladzī aṭ‘amanā wa saqānā wa ja‘alanā muslimīn",
+                arti = "Segala puji bagi Allah yang telah memberi kami makan dan minum serta menjadikan kami orang-orang muslim.",
+                imageRes = R.drawable.doa_sesudah_makan
             ),
 
             // 5. Salam
@@ -41,7 +48,8 @@ object DoaData {
                 judul = "Salam",
                 arab = "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
                 latin = "Assalāmu‘alaikum wa raḥmatullāhi wa barakātuh",
-                arti = "Semoga keselamatan, rahmat, dan berkah Allah tercurah kepada kalian."
+                arti = "Semoga keselamatan, rahmat, dan berkah Allah tercurah kepada kalian.",
+                imageRes = R.drawable.doa_salam
             ),
 
             // 6. Menjawab Salam
@@ -49,7 +57,8 @@ object DoaData {
                 judul = "Menjawab Salam",
                 arab = "وَعَلَيْكُمُ السَّلَامُ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
                 latin = "Wa‘alaikumussalām wa raḥmatullāhi wa barakātuh",
-                arti = "Dan semoga keselamatan, rahmat, dan berkah Allah juga tercurah kepada kalian."
+                arti = "Dan semoga keselamatan, rahmat, dan berkah Allah juga tercurah kepada kalian.",
+                imageRes = R.drawable.doa_menjawab_salam
             ),
 
             // 7. Birrul Walidain
@@ -57,7 +66,8 @@ object DoaData {
                 judul = "Birrul Walidain",
                 arab = "رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
                 latin = "Rabbighfir lī wa liwālidayya warḥamhumā kamā rabbayānī ṣaghīrā",
-                arti = "Ya Tuhanku, ampunilah aku dan kedua orang tuaku, dan sayangilah mereka sebagaimana mereka menyayangiku saat kecil."
+                arti = "Ya Tuhanku, ampunilah aku dan kedua orang tuaku, dan sayangilah mereka sebagaimana mereka menyayangiku di waktu kecil.",
+                imageRes = R.drawable.doa_birrul_walidain
             ),
 
             // 8. Masuk WC
@@ -65,7 +75,8 @@ object DoaData {
                 judul = "Masuk WC",
                 arab = "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ",
                 latin = "Allāhumma innī a‘ūdzu bika minal khubutsi wal khabā’its",
-                arti = "Ya Allah, aku berlindung kepada-Mu dari godaan setan laki-laki dan perempuan."
+                arti = "Ya Allah, aku berlindung kepada-Mu dari godaan setan laki-laki dan perempuan.",
+                imageRes = R.drawable.doa_masuk_wc
             ),
 
             // 9. Bersuci
@@ -73,7 +84,8 @@ object DoaData {
                 judul = "Bersuci",
                 arab = "اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ",
                 latin = "Allāhummaj‘alnī minat tawwābīn waj‘alnī minal mutaṭahhirīn",
-                arti = "Ya Allah, jadikanlah aku termasuk orang yang bertaubat dan orang yang bersuci."
+                arti = "Ya Allah, jadikanlah aku termasuk orang-orang yang bertaubat dan bersuci.",
+                imageRes = R.drawable.doa_bersuci
             ),
 
             // 10. Keluar WC
@@ -81,7 +93,8 @@ object DoaData {
                 judul = "Keluar WC",
                 arab = "غُفْرَانَكَ",
                 latin = "Ghufrānak",
-                arti = "Aku memohon ampunan-Mu, ya Allah."
+                arti = "Aku memohon ampunan-Mu, ya Allah.",
+                imageRes = R.drawable.doa_keluar_wc
             ),
 
             // 11. Masuk Masjid
@@ -89,7 +102,8 @@ object DoaData {
                 judul = "Masuk Masjid",
                 arab = "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
                 latin = "Allāhummaftaḥ lī abwāba raḥmatik",
-                arti = "Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu."
+                arti = "Ya Allah, bukakanlah bagiku pintu-pintu rahmat-Mu.",
+                imageRes = R.drawable.doa_masuk_masjid
             ),
 
             // 12. Keluar Masjid
@@ -97,15 +111,17 @@ object DoaData {
                 judul = "Keluar Masjid",
                 arab = "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
                 latin = "Allāhumma innī as’aluka min faḍlik",
-                arti = "Ya Allah, aku memohon karunia dari-Mu."
+                arti = "Ya Allah, aku memohon karunia dari-Mu.",
+                imageRes = R.drawable.doa_keluar_masjid
             ),
 
             // 13. Doa Berjanji
             DoaEntity(
                 judul = "Doa Berjanji",
-                arab = "اللَّهُمَّ إِنِّي أَعَاهِدُكَ عَلَى طَاعَتِكَ مَا اسْتَطَعْتُ",
+                arab = "اللَّهُمَّ إِنِّي أُعَاهِدُكَ عَلَى طَاعَتِكَ مَا اسْتَطَعْتُ",
                 latin = "Allāhumma innī u‘āhiduka ‘alā ṭā‘atika mā istaṭa‘tu",
-                arti = "Ya Allah, aku berjanji kepada-Mu untuk taat kepada-Mu semampuku."
+                arti = "Ya Allah, aku berjanji kepada-Mu untuk taat kepada-Mu semampuku.",
+                imageRes = R.drawable.doa_berjanji
             ),
 
             // 14. Doa Bersin
@@ -113,7 +129,8 @@ object DoaData {
                 judul = "Doa Bersin",
                 arab = "الْحَمْدُ لِلَّهِ",
                 latin = "Alḥamdulillāh",
-                arti = "Segala puji bagi Allah."
+                arti = "Segala puji bagi Allah.",
+                imageRes = R.drawable.doa_bersin
             ),
 
             // 15. Mendengar Bersin
@@ -121,7 +138,8 @@ object DoaData {
                 judul = "Mendengar Bersin",
                 arab = "يَرْحَمُكَ اللَّهُ",
                 latin = "Yarḥamukallāh",
-                arti = "Semoga Allah merahmatimu."
+                arti = "Semoga Allah merahmatimu.",
+                imageRes = R.drawable.doa_mendengar_bersin
             ),
 
             // 16. Jawab Bersin
@@ -129,7 +147,8 @@ object DoaData {
                 judul = "Jawab Bersin",
                 arab = "يَهْدِيكُمُ اللَّهُ وَيُصْلِحُ بَالَكُمْ",
                 latin = "Yahdīkumullāh wa yuṣliḥu bālakum",
-                arti = "Semoga Allah memberi petunjuk kepadamu dan memperbaiki keadaanmu."
+                arti = "Semoga Allah memberi petunjuk kepadamu dan memperbaiki keadaanmu.",
+                imageRes = R.drawable.doa_jawab_bersin
             ),
 
             // 17. Bercermin
@@ -137,7 +156,8 @@ object DoaData {
                 judul = "Bercermin",
                 arab = "اللَّهُمَّ كَمَا حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي",
                 latin = "Allāhumma kamā ḥassanta khalqī faḥassin khuluqī",
-                arti = "Ya Allah, sebagaimana Engkau telah memperindah rupaku, maka perindahlah akhlakku."
+                arti = "Ya Allah, sebagaimana Engkau memperindah rupaku, maka perindahlah akhlakku.",
+                imageRes = R.drawable.doa_bercermin
             ),
 
             // 18. Akan Tidur
@@ -145,7 +165,8 @@ object DoaData {
                 judul = "Akan Tidur",
                 arab = "بِاسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ",
                 latin = "Bismikallāhumma aḥyā wa amūt",
-                arti = "Dengan nama-Mu ya Allah aku hidup dan aku mati."
+                arti = "Dengan nama-Mu ya Allah aku hidup dan aku mati.",
+                imageRes = R.drawable.doa_akan_tidur
             ),
 
             // 19. Bangun Tidur
@@ -153,7 +174,8 @@ object DoaData {
                 judul = "Bangun Tidur",
                 arab = "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا",
                 latin = "Alḥamdulillāhilladzī aḥyānā ba‘da mā amātanā",
-                arti = "Segala puji bagi Allah yang menghidupkan kami setelah mematikan kami."
+                arti = "Segala puji bagi Allah yang menghidupkan kami setelah mematikan kami.",
+                imageRes = R.drawable.doa_bangun_tidur
             ),
 
             // 20. Naik Kendaraan
@@ -161,7 +183,8 @@ object DoaData {
                 judul = "Naik Kendaraan",
                 arab = "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ",
                 latin = "Subḥānalladzī sakhkhara lanā hādzā wa mā kunnā lahu muqrinīn",
-                arti = "Maha suci Allah yang telah menundukkan kendaraan ini bagi kami."
+                arti = "Maha suci Allah yang telah menundukkan kendaraan ini bagi kami.",
+                imageRes = R.drawable.doa_naik_kendaraan
             )
         )
     }
