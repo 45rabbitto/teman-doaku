@@ -20,18 +20,33 @@ class TebakArtiActivity : AppCompatActivity() {
 
         showQuestion()
 
-        binding.btnOption1.setOnClickListener { checkAnswer(it as String) }
-        binding.btnOption2.setOnClickListener { checkAnswer(it as String) }
-        binding.btnOption3.setOnClickListener { checkAnswer(it as String) }
+        binding.btnOption1.setOnClickListener {
+            checkAnswer(binding.btnOption1.text.toString())
+        }
+
+        binding.btnOption2.setOnClickListener {
+            checkAnswer(binding.btnOption2.text.toString())
+        }
+
+        binding.btnOption3.setOnClickListener {
+            checkAnswer(binding.btnOption3.text.toString())
+        }
+
+        binding.btnOption4.setOnClickListener {
+            checkAnswer(binding.btnOption4.text.toString())
+        }
     }
 
     private fun showQuestion() {
         val q = questions[index]
+
         binding.tvQuestionNumber.text = "Soal ${index + 1} / ${questions.size}"
         binding.tvQuestion.text = q.question
+
         binding.btnOption1.text = q.options[0]
         binding.btnOption2.text = q.options[1]
         binding.btnOption3.text = q.options[2]
+        binding.btnOption4.text = q.options[3]
     }
 
     private fun checkAnswer(answer: String) {

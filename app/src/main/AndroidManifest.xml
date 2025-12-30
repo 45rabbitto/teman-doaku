@@ -12,52 +12,52 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TemanDoaku"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.ResultActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.SambungAyatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.TebakArtiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GameQuestion"
-            android:exported="false" />
-        <activity
-            android:name=".SambungAyatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TebakArtiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AchievementActivity"
-            android:exported="false" />
-        <activity
-            android:name=".models.doa"
-            android:exported="false" />
+
+        <!-- MAIN / HOME -->
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.TemanDoaku">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- MENU MINIGAME -->
+        <activity
+            android:name=".ui.MinigameActivity"
+            android:exported="false" />
+
+        <!-- GAME SAMBUNG AYAT -->
+        <activity
+            android:name=".ui.SambungAyatActivity"
+            android:exported="false" />
+
+        <!-- GAME TEBAK ARTI -->
+        <activity
+            android:name=".ui.TebakArtiActivity"
+            android:exported="false" />
+
+        <!-- RESULT SCORE -->
+        <activity
+            android:name=".ui.ResultActivity"
+            android:exported="false" />
+
+        <!-- ACHIEVEMENT / TROPHY -->
+        <activity
+            android:name=".AchievementActivity"
+            android:exported="false" />
+
+        <!-- DOA LIST -->
         <activity
             android:name=".DoaListActivity"
             android:exported="false" />
+
+        <!-- DOA DETAIL -->
         <activity
             android:name=".DoaDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".MinigameActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MinigameActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>
