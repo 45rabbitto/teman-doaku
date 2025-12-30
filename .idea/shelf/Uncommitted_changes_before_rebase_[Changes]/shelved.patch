@@ -1,0 +1,1053 @@
+Index: app/src/main/java/com/temandoaku/data/AppDatabase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.temandoaku.data\r\n\r\nimport android.content.Context\r\nimport androidx.room.Database\r\nimport androidx.room.Room\r\nimport androidx.room.RoomDatabase\r\n\r\n@Database(\r\n    entities = [DoaEntity::class],\r\n    version = 1,\r\n    exportSchema = false\r\n)\r\nabstract class AppDatabase : RoomDatabase() {\r\n\r\n    abstract fun doaDao(): DoaDao\r\n\r\n    companion object {\r\n        @Volatile\r\n        private var INSTANCE: AppDatabase? = null\r\n\r\n        fun getDatabase(context: Context): AppDatabase {\r\n            return INSTANCE ?: synchronized(this) {\r\n                val instance = Room.databaseBuilder(\r\n                    context.applicationContext,\r\n                    AppDatabase::class.java,\r\n                    \"doa_database\"\r\n                ).build()\r\n                INSTANCE = instance\r\n                instance\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/temandoaku/data/AppDatabase.kt b/app/src/main/java/com/temandoaku/data/AppDatabase.kt
+--- a/app/src/main/java/com/temandoaku/data/AppDatabase.kt	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/app/src/main/java/com/temandoaku/data/AppDatabase.kt	(date 1767009570078)
+@@ -7,7 +7,7 @@
+ 
+ @Database(
+     entities = [DoaEntity::class],
+-    version = 1,
++    version = 2,
+     exportSchema = false
+ )
+ abstract class AppDatabase : RoomDatabase() {
+@@ -24,7 +24,9 @@
+                     context.applicationContext,
+                     AppDatabase::class.java,
+                     "doa_database"
+-                ).build()
++                )
++                    .fallbackToDestructiveMigration()
++                    .build()
+                 INSTANCE = instance
+                 instance
+             }
+Index: app/src/main/java/com/temandoaku/adapter/DoaAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.temandoaku.adapter\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.TextView\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.temandoaku.R\r\nimport com.temandoaku.data.DoaEntity\r\n\r\nclass DoaAdapter(\r\n    private val list: List<DoaEntity>\r\n) : RecyclerView.Adapter<DoaAdapter.DoaViewHolder>() {\r\n\r\n    inner class DoaViewHolder(view: View) : RecyclerView.ViewHolder(view) {\r\n        val tvJudul: TextView = view.findViewById(R.id.tvJudul)\r\n        val tvArab: TextView = view.findViewById(R.id.tvArab)\r\n        val tvLatin: TextView = view.findViewById(R.id.tvLatin)\r\n        val tvArti: TextView = view.findViewById(R.id.tvArti)\r\n    }\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoaViewHolder {\r\n        val view = LayoutInflater.from(parent.context)\r\n            .inflate(R.layout.item_doa, parent, false)\r\n        return DoaViewHolder(view)\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: DoaViewHolder, position: Int) {\r\n        val doa = list[position]\r\n        holder.tvJudul.text = doa.judul\r\n        holder.tvArab.text = doa.arab\r\n        holder.tvLatin.text = doa.latin\r\n        holder.tvArti.text = doa.arti\r\n    }\r\n\r\n    override fun getItemCount(): Int = list.size\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/temandoaku/adapter/DoaAdapter.kt b/app/src/main/java/com/temandoaku/adapter/DoaAdapter.kt
+--- a/app/src/main/java/com/temandoaku/adapter/DoaAdapter.kt	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/app/src/main/java/com/temandoaku/adapter/DoaAdapter.kt	(date 1766988934665)
+@@ -9,14 +9,12 @@
+ import com.temandoaku.data.DoaEntity
+ 
+ class DoaAdapter(
+-    private val list: List<DoaEntity>
++    private val list: List<DoaEntity>,
++    private val onItemClick: (DoaEntity) -> Unit
+ ) : RecyclerView.Adapter<DoaAdapter.DoaViewHolder>() {
+ 
+     inner class DoaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+         val tvJudul: TextView = view.findViewById(R.id.tvJudul)
+-        val tvArab: TextView = view.findViewById(R.id.tvArab)
+-        val tvLatin: TextView = view.findViewById(R.id.tvLatin)
+-        val tvArti: TextView = view.findViewById(R.id.tvArti)
+     }
+ 
+     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoaViewHolder {
+@@ -28,9 +26,10 @@
+     override fun onBindViewHolder(holder: DoaViewHolder, position: Int) {
+         val doa = list[position]
+         holder.tvJudul.text = doa.judul
+-        holder.tvArab.text = doa.arab
+-        holder.tvLatin.text = doa.latin
+-        holder.tvArti.text = doa.arti
++
++        holder.itemView.setOnClickListener {
++            onItemClick(doa)
++        }
+     }
+ 
+     override fun getItemCount(): Int = list.size
+Index: app/src/main/java/com/temandoaku/data/DoaEntity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.temandoaku.data\r\n\r\nimport androidx.room.Entity\r\nimport androidx.room.PrimaryKey\r\n\r\n@Entity(tableName = \"doa\")\r\ndata class DoaEntity(\r\n    @PrimaryKey(autoGenerate = true)\r\n    val id: Int = 0,\r\n    val judul: String,\r\n    val arab: String,\r\n    val latin: String,\r\n    val arti: String\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/temandoaku/data/DoaEntity.kt b/app/src/main/java/com/temandoaku/data/DoaEntity.kt
+--- a/app/src/main/java/com/temandoaku/data/DoaEntity.kt	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/app/src/main/java/com/temandoaku/data/DoaEntity.kt	(date 1766995182547)
+@@ -2,7 +2,6 @@
+ 
+ import androidx.room.Entity
+ import androidx.room.PrimaryKey
+-
+ @Entity(tableName = "doa")
+ data class DoaEntity(
+     @PrimaryKey(autoGenerate = true)
+@@ -10,5 +9,6 @@
+     val judul: String,
+     val arab: String,
+     val latin: String,
+-    val arti: String
++    val arti: String,
++    val imageRes: Int
+ )
+Index: app/src/main/java/com/temandoaku/data/DoaData.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.temandoaku.data\r\nobject DoaData {\r\n\r\n    fun getAll(): List<DoaEntity> {\r\n        return listOf(\r\n\r\n            // 1. Masuk Rumah\r\n            DoaEntity(\r\n                judul = \"Masuk Rumah\",\r\n                arab = \"بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا\",\r\n                latin = \"Bismillāhi walajnā, wa bismillāhi kharajnā, wa ‘alā rabbinā tawakkalnā\",\r\n                arti = \"Dengan nama Allah kami masuk, dengan nama Allah kami keluar, dan kepada Allah Tuhan kami, kami bertawakal.\"\r\n            ),\r\n\r\n            // 2. Keluar Rumah\r\n            DoaEntity(\r\n                judul = \"Keluar Rumah\",\r\n                arab = \"بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ\",\r\n                latin = \"Bismillāh, tawakkaltu ‘alallāh, lā ḥaula wa lā quwwata illā billāh\",\r\n                arti = \"Dengan nama Allah, aku bertawakal kepada Allah. Tidak ada daya dan kekuatan kecuali dengan pertolongan Allah.\"\r\n            ),\r\n\r\n            // 3. Doa Makan\r\n            DoaEntity(\r\n                judul = \"Sebelum Makan\",\r\n                arab = \"اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ\",\r\n                latin = \"Allāhumma bārik lanā fīmā razaqtanā wa qinā ‘adzāban-nār\",\r\n                arti = \"Ya Allah, berkahilah kami dalam rezeki yang Engkau berikan dan lindungilah kami dari azab neraka.\"\r\n            ),\r\n\r\n            // 4. Sesudah Makan\r\n            DoaEntity(\r\n                judul = \"Sesudah Makan\",\r\n                arab = \"الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ\",\r\n                latin = \"Alḥamdulillāhilladzī aṭ‘amanī hādzā wa razaqanīhi min ghairi ḥaulin minnī wa lā quwwah\",\r\n                arti = \"Segala puji bagi Allah yang telah memberiku makanan ini tanpa daya dan kekuatanku.\"\r\n            ),\r\n\r\n            // 5. Salam\r\n            DoaEntity(\r\n                judul = \"Salam\",\r\n                arab = \"السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ\",\r\n                latin = \"Assalāmu‘alaikum wa raḥmatullāhi wa barakātuh\",\r\n                arti = \"Semoga keselamatan, rahmat, dan berkah Allah tercurah kepada kalian.\"\r\n            ),\r\n\r\n            // 6. Menjawab Salam\r\n            DoaEntity(\r\n                judul = \"Menjawab Salam\",\r\n                arab = \"وَعَلَيْكُمُ السَّلَامُ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ\",\r\n                latin = \"Wa‘alaikumussalām wa raḥmatullāhi wa barakātuh\",\r\n                arti = \"Dan semoga keselamatan, rahmat, dan berkah Allah juga tercurah kepada kalian.\"\r\n            ),\r\n\r\n            // 7. Birrul Walidain\r\n            DoaEntity(\r\n                judul = \"Birrul Walidain\",\r\n                arab = \"رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا\",\r\n                latin = \"Rabbighfir lī wa liwālidayya warḥamhumā kamā rabbayānī ṣaghīrā\",\r\n                arti = \"Ya Tuhanku, ampunilah aku dan kedua orang tuaku, dan sayangilah mereka sebagaimana mereka menyayangiku saat kecil.\"\r\n            ),\r\n\r\n            // 8. Masuk WC\r\n            DoaEntity(\r\n                judul = \"Masuk WC\",\r\n                arab = \"اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ\",\r\n                latin = \"Allāhumma innī a‘ūdzu bika minal khubutsi wal khabā’its\",\r\n                arti = \"Ya Allah, aku berlindung kepada-Mu dari godaan setan laki-laki dan perempuan.\"\r\n            ),\r\n\r\n            // 9. Bersuci\r\n            DoaEntity(\r\n                judul = \"Bersuci\",\r\n                arab = \"اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ\",\r\n                latin = \"Allāhummaj‘alnī minat tawwābīn waj‘alnī minal mutaṭahhirīn\",\r\n                arti = \"Ya Allah, jadikanlah aku termasuk orang yang bertaubat dan orang yang bersuci.\"\r\n            ),\r\n\r\n            // 10. Keluar WC\r\n            DoaEntity(\r\n                judul = \"Keluar WC\",\r\n                arab = \"غُفْرَانَكَ\",\r\n                latin = \"Ghufrānak\",\r\n                arti = \"Aku memohon ampunan-Mu, ya Allah.\"\r\n            ),\r\n\r\n            // 11. Masuk Masjid\r\n            DoaEntity(\r\n                judul = \"Masuk Masjid\",\r\n                arab = \"اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ\",\r\n                latin = \"Allāhummaftaḥ lī abwāba raḥmatik\",\r\n                arti = \"Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu.\"\r\n            ),\r\n\r\n            // 12. Keluar Masjid\r\n            DoaEntity(\r\n                judul = \"Keluar Masjid\",\r\n                arab = \"اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ\",\r\n                latin = \"Allāhumma innī as’aluka min faḍlik\",\r\n                arti = \"Ya Allah, aku memohon karunia dari-Mu.\"\r\n            ),\r\n\r\n            // 13. Doa Berjanji\r\n            DoaEntity(\r\n                judul = \"Doa Berjanji\",\r\n                arab = \"اللَّهُمَّ إِنِّي أَعَاهِدُكَ عَلَى طَاعَتِكَ مَا اسْتَطَعْتُ\",\r\n                latin = \"Allāhumma innī u‘āhiduka ‘alā ṭā‘atika mā istaṭa‘tu\",\r\n                arti = \"Ya Allah, aku berjanji kepada-Mu untuk taat kepada-Mu semampuku.\"\r\n            ),\r\n\r\n            // 14. Doa Bersin\r\n            DoaEntity(\r\n                judul = \"Doa Bersin\",\r\n                arab = \"الْحَمْدُ لِلَّهِ\",\r\n                latin = \"Alḥamdulillāh\",\r\n                arti = \"Segala puji bagi Allah.\"\r\n            ),\r\n\r\n            // 15. Mendengar Bersin\r\n            DoaEntity(\r\n                judul = \"Mendengar Bersin\",\r\n                arab = \"يَرْحَمُكَ اللَّهُ\",\r\n                latin = \"Yarḥamukallāh\",\r\n                arti = \"Semoga Allah merahmatimu.\"\r\n            ),\r\n\r\n            // 16. Jawab Bersin\r\n            DoaEntity(\r\n                judul = \"Jawab Bersin\",\r\n                arab = \"يَهْدِيكُمُ اللَّهُ وَيُصْلِحُ بَالَكُمْ\",\r\n                latin = \"Yahdīkumullāh wa yuṣliḥu bālakum\",\r\n                arti = \"Semoga Allah memberi petunjuk kepadamu dan memperbaiki keadaanmu.\"\r\n            ),\r\n\r\n            // 17. Bercermin\r\n            DoaEntity(\r\n                judul = \"Bercermin\",\r\n                arab = \"اللَّهُمَّ كَمَا حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي\",\r\n                latin = \"Allāhumma kamā ḥassanta khalqī faḥassin khuluqī\",\r\n                arti = \"Ya Allah, sebagaimana Engkau telah memperindah rupaku, maka perindahlah akhlakku.\"\r\n            ),\r\n\r\n            // 18. Akan Tidur\r\n            DoaEntity(\r\n                judul = \"Akan Tidur\",\r\n                arab = \"بِاسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ\",\r\n                latin = \"Bismikallāhumma aḥyā wa amūt\",\r\n                arti = \"Dengan nama-Mu ya Allah aku hidup dan aku mati.\"\r\n            ),\r\n\r\n            // 19. Bangun Tidur\r\n            DoaEntity(\r\n                judul = \"Bangun Tidur\",\r\n                arab = \"الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا\",\r\n                latin = \"Alḥamdulillāhilladzī aḥyānā ba‘da mā amātanā\",\r\n                arti = \"Segala puji bagi Allah yang menghidupkan kami setelah mematikan kami.\"\r\n            ),\r\n\r\n            // 20. Naik Kendaraan\r\n            DoaEntity(\r\n                judul = \"Naik Kendaraan\",\r\n                arab = \"سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ\",\r\n                latin = \"Subḥānalladzī sakhkhara lanā hādzā wa mā kunnā lahu muqrinīn\",\r\n                arti = \"Maha suci Allah yang telah menundukkan kendaraan ini bagi kami.\"\r\n            )\r\n        )\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/temandoaku/data/DoaData.kt b/app/src/main/java/com/temandoaku/data/DoaData.kt
+--- a/app/src/main/java/com/temandoaku/data/DoaData.kt	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/app/src/main/java/com/temandoaku/data/DoaData.kt	(date 1766995870901)
+@@ -1,4 +1,7 @@
+ package com.temandoaku.data
++
++import com.temandoaku.R
++
+ object DoaData {
+ 
+     fun getAll(): List<DoaEntity> {
+@@ -9,7 +12,8 @@
+                 judul = "Masuk Rumah",
+                 arab = "بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا",
+                 latin = "Bismillāhi walajnā, wa bismillāhi kharajnā, wa ‘alā rabbinā tawakkalnā",
+-                arti = "Dengan nama Allah kami masuk, dengan nama Allah kami keluar, dan kepada Allah Tuhan kami, kami bertawakal."
++                arti = "Dengan nama Allah kami masuk, dengan nama Allah kami keluar, dan kepada Allah Tuhan kami, kami bertawakal.",
++                imageRes = R.drawable.doa_masuk_rumah
+             ),
+ 
+             // 2. Keluar Rumah
+@@ -17,23 +21,26 @@
+                 judul = "Keluar Rumah",
+                 arab = "بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+                 latin = "Bismillāh, tawakkaltu ‘alallāh, lā ḥaula wa lā quwwata illā billāh",
+-                arti = "Dengan nama Allah, aku bertawakal kepada Allah. Tidak ada daya dan kekuatan kecuali dengan pertolongan Allah."
++                arti = "Dengan nama Allah, aku bertawakal kepada Allah. Tidak ada daya dan kekuatan kecuali dengan pertolongan Allah.",
++                imageRes = R.drawable.doa_keluar_rumah
+             ),
+ 
+-            // 3. Doa Makan
++            // 3. Sebelum Makan
+             DoaEntity(
+                 judul = "Sebelum Makan",
+                 arab = "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ",
+                 latin = "Allāhumma bārik lanā fīmā razaqtanā wa qinā ‘adzāban-nār",
+-                arti = "Ya Allah, berkahilah kami dalam rezeki yang Engkau berikan dan lindungilah kami dari azab neraka."
++                arti = "Ya Allah, berkahilah kami dalam rezeki yang Engkau berikan dan lindungilah kami dari azab neraka.",
++                imageRes = R.drawable.doa_makan
+             ),
+ 
+             // 4. Sesudah Makan
+             DoaEntity(
+                 judul = "Sesudah Makan",
+-                arab = "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+-                latin = "Alḥamdulillāhilladzī aṭ‘amanī hādzā wa razaqanīhi min ghairi ḥaulin minnī wa lā quwwah",
+-                arti = "Segala puji bagi Allah yang telah memberiku makanan ini tanpa daya dan kekuatanku."
++                arab = "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ",
++                latin = "Alḥamdulillāhilladzī aṭ‘amanā wa saqānā wa ja‘alanā muslimīn",
++                arti = "Segala puji bagi Allah yang telah memberi kami makan dan minum serta menjadikan kami orang-orang muslim.",
++                imageRes = R.drawable.doa_sesudah_makan
+             ),
+ 
+             // 5. Salam
+@@ -41,7 +48,8 @@
+                 judul = "Salam",
+                 arab = "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
+                 latin = "Assalāmu‘alaikum wa raḥmatullāhi wa barakātuh",
+-                arti = "Semoga keselamatan, rahmat, dan berkah Allah tercurah kepada kalian."
++                arti = "Semoga keselamatan, rahmat, dan berkah Allah tercurah kepada kalian.",
++                imageRes = R.drawable.doa_salam
+             ),
+ 
+             // 6. Menjawab Salam
+@@ -49,7 +57,8 @@
+                 judul = "Menjawab Salam",
+                 arab = "وَعَلَيْكُمُ السَّلَامُ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
+                 latin = "Wa‘alaikumussalām wa raḥmatullāhi wa barakātuh",
+-                arti = "Dan semoga keselamatan, rahmat, dan berkah Allah juga tercurah kepada kalian."
++                arti = "Dan semoga keselamatan, rahmat, dan berkah Allah juga tercurah kepada kalian.",
++                imageRes = R.drawable.doa_menjawab_salam
+             ),
+ 
+             // 7. Birrul Walidain
+@@ -57,7 +66,8 @@
+                 judul = "Birrul Walidain",
+                 arab = "رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
+                 latin = "Rabbighfir lī wa liwālidayya warḥamhumā kamā rabbayānī ṣaghīrā",
+-                arti = "Ya Tuhanku, ampunilah aku dan kedua orang tuaku, dan sayangilah mereka sebagaimana mereka menyayangiku saat kecil."
++                arti = "Ya Tuhanku, ampunilah aku dan kedua orang tuaku, dan sayangilah mereka sebagaimana mereka menyayangiku di waktu kecil.",
++                imageRes = R.drawable.doa_birrul_walidain
+             ),
+ 
+             // 8. Masuk WC
+@@ -65,7 +75,8 @@
+                 judul = "Masuk WC",
+                 arab = "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ",
+                 latin = "Allāhumma innī a‘ūdzu bika minal khubutsi wal khabā’its",
+-                arti = "Ya Allah, aku berlindung kepada-Mu dari godaan setan laki-laki dan perempuan."
++                arti = "Ya Allah, aku berlindung kepada-Mu dari godaan setan laki-laki dan perempuan.",
++                imageRes = R.drawable.doa_masuk_wc
+             ),
+ 
+             // 9. Bersuci
+@@ -73,15 +84,17 @@
+                 judul = "Bersuci",
+                 arab = "اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ",
+                 latin = "Allāhummaj‘alnī minat tawwābīn waj‘alnī minal mutaṭahhirīn",
+-                arti = "Ya Allah, jadikanlah aku termasuk orang yang bertaubat dan orang yang bersuci."
++                arti = "Ya Allah, jadikanlah aku termasuk orang-orang yang bertaubat dan bersuci.",
++                imageRes = R.drawable.doa_bersuci
+             ),
+ 
+             // 10. Keluar WC
+             DoaEntity(
+                 judul = "Keluar WC",
+-                arab = "غُفْرَانَكَ",
+-                latin = "Ghufrānak",
+-                arti = "Aku memohon ampunan-Mu, ya Allah."
++                arab = "غُفْرَانَكَ الْحَمْدُ لِلّٰهِ الَّذِيْ أَذْهَبَ عَنِّيْ الْأَذَى وَعَافَانِيَْ",
++                latin = "Ghofirokallahu, alhamdulillahil ladzi adzhaba 'anni al-adza wa 'aafani",
++                arti = "Aku memohon ampunan-Mu, ya Allah.",
++                imageRes = R.drawable.doa_keluar_wc
+             ),
+ 
+             // 11. Masuk Masjid
+@@ -89,7 +102,8 @@
+                 judul = "Masuk Masjid",
+                 arab = "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+                 latin = "Allāhummaftaḥ lī abwāba raḥmatik",
+-                arti = "Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu."
++                arti = "Ya Allah, bukakanlah bagiku pintu-pintu rahmat-Mu.",
++                imageRes = R.drawable.doa_masuk_masjid
+             ),
+ 
+             // 12. Keluar Masjid
+@@ -97,15 +111,17 @@
+                 judul = "Keluar Masjid",
+                 arab = "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
+                 latin = "Allāhumma innī as’aluka min faḍlik",
+-                arti = "Ya Allah, aku memohon karunia dari-Mu."
++                arti = "Ya Allah, aku memohon karunia dari-Mu.",
++                imageRes = R.drawable.doa_keluar_masjid
+             ),
+ 
+             // 13. Doa Berjanji
+             DoaEntity(
+                 judul = "Doa Berjanji",
+-                arab = "اللَّهُمَّ إِنِّي أَعَاهِدُكَ عَلَى طَاعَتِكَ مَا اسْتَطَعْتُ",
++                arab = "اللَّهُمَّ إِنِّي أُعَاهِدُكَ عَلَى طَاعَتِكَ مَا اسْتَطَعْتُ",
+                 latin = "Allāhumma innī u‘āhiduka ‘alā ṭā‘atika mā istaṭa‘tu",
+-                arti = "Ya Allah, aku berjanji kepada-Mu untuk taat kepada-Mu semampuku."
++                arti = "Ya Allah, aku berjanji kepada-Mu untuk taat kepada-Mu semampuku.",
++                imageRes = R.drawable.doa_berjanji
+             ),
+ 
+             // 14. Doa Bersin
+@@ -113,7 +129,8 @@
+                 judul = "Doa Bersin",
+                 arab = "الْحَمْدُ لِلَّهِ",
+                 latin = "Alḥamdulillāh",
+-                arti = "Segala puji bagi Allah."
++                arti = "Segala puji bagi Allah.",
++                imageRes = R.drawable.doa_bersin
+             ),
+ 
+             // 15. Mendengar Bersin
+@@ -121,7 +138,8 @@
+                 judul = "Mendengar Bersin",
+                 arab = "يَرْحَمُكَ اللَّهُ",
+                 latin = "Yarḥamukallāh",
+-                arti = "Semoga Allah merahmatimu."
++                arti = "Semoga Allah merahmatimu.",
++                imageRes = R.drawable.doa_mendengar_bersin
+             ),
+ 
+             // 16. Jawab Bersin
+@@ -129,7 +147,8 @@
+                 judul = "Jawab Bersin",
+                 arab = "يَهْدِيكُمُ اللَّهُ وَيُصْلِحُ بَالَكُمْ",
+                 latin = "Yahdīkumullāh wa yuṣliḥu bālakum",
+-                arti = "Semoga Allah memberi petunjuk kepadamu dan memperbaiki keadaanmu."
++                arti = "Semoga Allah memberi petunjuk kepadamu dan memperbaiki keadaanmu.",
++                imageRes = R.drawable.doa_jawab_bersin
+             ),
+ 
+             // 17. Bercermin
+@@ -137,7 +156,8 @@
+                 judul = "Bercermin",
+                 arab = "اللَّهُمَّ كَمَا حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي",
+                 latin = "Allāhumma kamā ḥassanta khalqī faḥassin khuluqī",
+-                arti = "Ya Allah, sebagaimana Engkau telah memperindah rupaku, maka perindahlah akhlakku."
++                arti = "Ya Allah, sebagaimana Engkau memperindah rupaku, maka perindahlah akhlakku.",
++                imageRes = R.drawable.doa_bercermin
+             ),
+ 
+             // 18. Akan Tidur
+@@ -145,7 +165,8 @@
+                 judul = "Akan Tidur",
+                 arab = "بِاسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ",
+                 latin = "Bismikallāhumma aḥyā wa amūt",
+-                arti = "Dengan nama-Mu ya Allah aku hidup dan aku mati."
++                arti = "Dengan nama-Mu ya Allah aku hidup dan aku mati.",
++                imageRes = R.drawable.doa_akan_tidur
+             ),
+ 
+             // 19. Bangun Tidur
+@@ -153,7 +174,8 @@
+                 judul = "Bangun Tidur",
+                 arab = "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا",
+                 latin = "Alḥamdulillāhilladzī aḥyānā ba‘da mā amātanā",
+-                arti = "Segala puji bagi Allah yang menghidupkan kami setelah mematikan kami."
++                arti = "Segala puji bagi Allah yang menghidupkan kami setelah mematikan kami.",
++                imageRes = R.drawable.doa_bangun_tidur
+             ),
+ 
+             // 20. Naik Kendaraan
+@@ -161,7 +183,8 @@
+                 judul = "Naik Kendaraan",
+                 arab = "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ",
+                 latin = "Subḥānalladzī sakhkhara lanā hādzā wa mā kunnā lahu muqrinīn",
+-                arti = "Maha suci Allah yang telah menundukkan kendaraan ini bagi kami."
++                arti = "Maha suci Allah yang telah menundukkan kendaraan ini bagi kami.",
++                imageRes = R.drawable.doa_naik_kendaraan
+             )
+         )
+     }
+Index: app/src/main/res/layout/activity_doa_detail.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#FFF0F8FF\"\r\n    android:fillViewport=\"true\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <!-- Header -->\r\n        <androidx.cardview.widget.CardView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            app:cardElevation=\"4dp\"\r\n            app:cardCornerRadius=\"0dp\"\r\n            app:cardBackgroundColor=\"#FF4CAF50\">\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:orientation=\"horizontal\"\r\n                android:padding=\"16dp\">\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/ivBack\"\r\n                    android:layout_width=\"30dp\"\r\n                    android:layout_height=\"30dp\"\r\n                    android:src=\"@android:drawable/ic_menu_revert\"\r\n                    android:tint=\"@android:color/white\"/>\r\n\r\n                <TextView\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_weight=\"1\"\r\n                    android:text=\"Detail Doa\"\r\n                    android:textSize=\"20sp\"\r\n                    android:textColor=\"@android:color/white\"\r\n                    android:textStyle=\"bold\"\r\n                    android:gravity=\"center\"/>\r\n            </LinearLayout>\r\n        </androidx.cardview.widget.CardView>\r\n\r\n        <!-- Konten Detail Doa -->\r\n        <androidx.cardview.widget.CardView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            app:cardCornerRadius=\"16dp\"\r\n            app:cardElevation=\"8dp\"\r\n            android:layout_margin=\"16dp\">\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:orientation=\"vertical\"\r\n                android:padding=\"24dp\"\r\n                android:background=\"@android:color/white\">\r\n\r\n                <!-- Gambar Ilustrasi -->\r\n                <ImageView\r\n                    android:id=\"@+id/ivDoaImage\"\r\n                    android:layout_width=\"150dp\"\r\n                    android:layout_height=\"150dp\"\r\n                    android:layout_gravity=\"center\"\r\n                    android:scaleType=\"centerCrop\"\r\n                    android:src=\"@android:drawable/ic_menu_help\"\r\n                    android:tint=\"#FF4CAF50\"\r\n                    android:layout_marginBottom=\"24dp\"/>\r\n\r\n                <!-- Judul Doa -->\r\n                <TextView\r\n                    android:id=\"@+id/tvDoaTitle\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"Doa Sebelum Makan\"\r\n                    android:textSize=\"24sp\"\r\n                    android:textColor=\"#FF4CAF50\"\r\n                    android:textStyle=\"bold\"\r\n                    android:layout_gravity=\"center\"\r\n                    android:layout_marginBottom=\"16dp\"/>\r\n\r\n                <!-- Bahasa Arab -->\r\n                <TextView\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"Arab\"\r\n                    android:textSize=\"16sp\"\r\n                    android:textColor=\"#FF333333\"\r\n                    android:textStyle=\"bold\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tvArabic\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"بِسْمِ اللهِ\"\r\n                    android:textSize=\"24sp\"\r\n                    android:textColor=\"#FF2E7D32\"\r\n                    android:textDirection=\"rtl\"\r\n                    android:gravity=\"center\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:layout_marginBottom=\"24dp\"\r\n                    android:lineSpacingExtra=\"8dp\"/>\r\n\r\n                <!-- Latin -->\r\n                <TextView\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"Latin\"\r\n                    android:textSize=\"16sp\"\r\n                    android:textColor=\"#FF333333\"\r\n                    android:textStyle=\"bold\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tvLatin\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"Bismillah\"\r\n                    android:textSize=\"18sp\"\r\n                    android:textColor=\"#FF666666\"\r\n                    android:gravity=\"center\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:layout_marginBottom=\"24dp\"\r\n                    android:lineSpacingExtra=\"8dp\"/>\r\n\r\n                <!-- Terjemahan -->\r\n                <TextView\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"Terjemahan\"\r\n                    android:textSize=\"16sp\"\r\n                    android:textColor=\"#FF333333\"\r\n                    android:textStyle=\"bold\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tvTranslation\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"Dengan nama Allah\"\r\n                    android:textSize=\"16sp\"\r\n                    android:textColor=\"#FF666666\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:lineSpacingExtra=\"8dp\"/>\r\n\r\n            </LinearLayout>\r\n        </androidx.cardview.widget.CardView>\r\n\r\n    </LinearLayout>\r\n\r\n</ScrollView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_doa_detail.xml b/app/src/main/res/layout/activity_doa_detail.xml
+--- a/app/src/main/res/layout/activity_doa_detail.xml	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/app/src/main/res/layout/activity_doa_detail.xml	(date 1767010248618)
+@@ -1,152 +1,97 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="#FFF0F8FF"
+-    android:fillViewport="true">
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    >
++
++    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++        xmlns:app="http://schemas.android.com/apk/res-auto"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
+         android:orientation="vertical">
+ 
+-        <!-- Header -->
+-        <androidx.cardview.widget.CardView
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            app:cardElevation="4dp"
+-            app:cardCornerRadius="0dp"
+-            app:cardBackgroundColor="#FF4CAF50">
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:padding="16dp">
++        <!-- HEADER -->
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:padding="16dp"
++            android:background="@color/green_islamic"
++            android:orientation="horizontal"
++            android:gravity="center_vertical">
+ 
+-                <ImageView
+-                    android:id="@+id/ivBack"
+-                    android:layout_width="30dp"
+-                    android:layout_height="30dp"
+-                    android:src="@android:drawable/ic_menu_revert"
+-                    android:tint="@android:color/white"/>
++            <ImageView
++                android:id="@+id/ivBack"
++                android:layout_width="24dp"
++                android:layout_height="24dp"
++                android:src="@drawable/ic_back"
++                app:tint="@android:color/white"/>
++
+ 
+-                <TextView
+-                    android:layout_width="0dp"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Detail Doa"
+-                    android:textSize="20sp"
+-                    android:textColor="@android:color/white"
+-                    android:textStyle="bold"
+-                    android:gravity="center"/>
+-            </LinearLayout>
+-        </androidx.cardview.widget.CardView>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="Kembali"
++                android:textColor="@android:color/white"
++                android:textSize="16sp"
++                android:layout_marginStart="12dp"/>
++        </LinearLayout>
+ 
+-        <!-- Konten Detail Doa -->
+-        <androidx.cardview.widget.CardView
++        <!-- SCROLL AREA -->
++        <ScrollView
+             android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            app:cardCornerRadius="16dp"
+-            app:cardElevation="8dp"
+-            android:layout_margin="16dp">
++            android:layout_height="match_parent"
++            android:fillViewport="true">
+ 
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+-                android:padding="24dp"
+-                android:background="@android:color/white">
++                android:padding="16dp">
+ 
+-                <!-- Gambar Ilustrasi -->
++                <!-- Judul -->
++                <TextView
++                    android:id="@+id/tvTitle"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:textSize="20sp"
++                    android:textStyle="bold"
++                    android:gravity="center"
++                    android:layout_marginBottom="12dp"/>
++
++                <!-- GAMBAR -->
+                 <ImageView
+                     android:id="@+id/ivDoaImage"
+-                    android:layout_width="150dp"
+-                    android:layout_height="150dp"
+-                    android:layout_gravity="center"
++                    android:layout_width="match_parent"
++                    android:layout_height="200dp"
+                     android:scaleType="centerCrop"
+-                    android:src="@android:drawable/ic_menu_help"
+-                    android:tint="#FF4CAF50"
+-                    android:layout_marginBottom="24dp"/>
+-
+-                <!-- Judul Doa -->
+-                <TextView
+-                    android:id="@+id/tvDoaTitle"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="Doa Sebelum Makan"
+-                    android:textSize="24sp"
+-                    android:textColor="#FF4CAF50"
+-                    android:textStyle="bold"
+-                    android:layout_gravity="center"
+                     android:layout_marginBottom="16dp"/>
+ 
+-                <!-- Bahasa Arab -->
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="Arab"
+-                    android:textSize="16sp"
+-                    android:textColor="#FF333333"
+-                    android:textStyle="bold"/>
+-
++                <!-- Arab -->
+                 <TextView
+                     android:id="@+id/tvArabic"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+-                    android:text="بِسْمِ اللهِ"
+-                    android:textSize="24sp"
+-                    android:textColor="#FF2E7D32"
+-                    android:textDirection="rtl"
++                    android:textSize="22sp"
+                     android:gravity="center"
+-                    android:layout_marginTop="8dp"
+-                    android:layout_marginBottom="24dp"
+-                    android:lineSpacingExtra="8dp"/>
++                    android:layout_marginBottom="12dp"/>
+ 
+                 <!-- Latin -->
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="Latin"
+-                    android:textSize="16sp"
+-                    android:textColor="#FF333333"
+-                    android:textStyle="bold"/>
+-
+                 <TextView
+                     android:id="@+id/tvLatin"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+-                    android:text="Bismillah"
+-                    android:textSize="18sp"
+-                    android:textColor="#FF666666"
+-                    android:gravity="center"
+-                    android:layout_marginTop="8dp"
+-                    android:layout_marginBottom="24dp"
+-                    android:lineSpacingExtra="8dp"/>
++                    android:textStyle="italic"
++                    android:layout_marginBottom="12dp"/>
+ 
+                 <!-- Terjemahan -->
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="Terjemahan"
+-                    android:textSize="16sp"
+-                    android:textColor="#FF333333"
+-                    android:textStyle="bold"/>
+-
+                 <TextView
+                     android:id="@+id/tvTranslation"
+                     android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:text="Dengan nama Allah"
+-                    android:textSize="16sp"
+-                    android:textColor="#FF666666"
+-                    android:layout_marginTop="8dp"
+-                    android:lineSpacingExtra="8dp"/>
++                    android:layout_height="wrap_content"/>
+ 
+             </LinearLayout>
+-        </androidx.cardview.widget.CardView>
++        </ScrollView>
+ 
+     </LinearLayout>
+ 
+-</ScrollView>
+\ No newline at end of file
++</ScrollView>
+Index: app/src/main/java/com/temandoaku/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.temandoaku\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport android.view.animation.AnimationUtils\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.lifecycle.lifecycleScope\r\nimport com.temandoaku.data.AppDatabase\r\nimport com.temandoaku.data.DoaData\r\nimport com.temandoaku.databinding.ActivityMainBinding\r\nimport kotlinx.coroutines.launch\r\n\r\nclass MainActivity : AppCompatActivity() {\r\n\r\n    private lateinit var binding: ActivityMainBinding\r\n    private lateinit var sharedPrefManager: SharedPrefManager\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        // ViewBinding HARUS di awal\r\n        binding = ActivityMainBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n\r\n        // Room Database\r\n        val db = AppDatabase.getDatabase(this)\r\n        val dao = db.doaDao()\r\n\r\n        lifecycleScope.launch {\r\n            dao.insertAll(DoaData.getAll())\r\n        }\r\n\r\n        // Shared Preference\r\n        sharedPrefManager = SharedPrefManager(this)\r\n        sharedPrefManager.updateLoginStreak()\r\n\r\n        // Animasi\r\n        val scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up)\r\n        val scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down)\r\n\r\n        // Tombol Kumpulan Doa\r\n        binding.cvDoa.setOnClickListener {\r\n            it.startAnimation(scaleUp)\r\n            it.startAnimation(scaleDown)\r\n            startActivity(Intent(this, DoaListActivity::class.java))\r\n        }\r\n\r\n        // Tombol Mini Game\r\n        binding.cvGame.setOnClickListener {\r\n            it.startAnimation(scaleUp)\r\n            it.startAnimation(scaleDown)\r\n            startActivity(Intent(this, MinigameActivity::class.java))\r\n        }\r\n\r\n        // Tombol Achievement\r\n        binding.cvAchievement.setOnClickListener {\r\n            it.startAnimation(scaleUp)\r\n            it.startAnimation(scaleDown)\r\n            startActivity(Intent(this, AchievementActivity::class.java))\r\n        }\r\n\r\n        // Tampilkan streak\r\n        val streak = sharedPrefManager.getLoginStreak()\r\n        if (streak > 0) {\r\n            binding.tvStreak.text = \"\uD83D\uDD25 Streak: $streak hari\"\r\n            binding.tvStreak.visibility = View.VISIBLE\r\n        } else {\r\n            binding.tvStreak.visibility = View.GONE\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/temandoaku/MainActivity.kt b/app/src/main/java/com/temandoaku/MainActivity.kt
+--- a/app/src/main/java/com/temandoaku/MainActivity.kt	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/app/src/main/java/com/temandoaku/MainActivity.kt	(date 1766983122362)
+@@ -9,6 +9,7 @@
+ import com.temandoaku.data.AppDatabase
+ import com.temandoaku.data.DoaData
+ import com.temandoaku.databinding.ActivityMainBinding
++import com.temandoaku.ui.DoaListActivity
+ import kotlinx.coroutines.launch
+ 
+ class MainActivity : AppCompatActivity() {
+Index: app/src/main/java/com/temandoaku/DoaDetailActivity.kt
+===================================================================
+diff --git a/app/src/main/java/com/temandoaku/DoaDetailActivity.kt b/app/src/main/java/com/temandoaku/DoaDetailActivity.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/temandoaku/DoaDetailActivity.kt	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ /dev/null	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
+@@ -1,36 +0,0 @@
+-package com.temandoaku
+-
+-import android.os.Bundle
+-import androidx.appcompat.app.AppCompatActivity
+-import com.temandoaku.databinding.ActivityDoaDetailBinding
+-
+-class DoaDetailActivity : AppCompatActivity() {
+-
+-    private lateinit var binding: ActivityDoaDetailBinding
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-
+-        binding = ActivityDoaDetailBinding.inflate(layoutInflater)
+-        setContentView(binding.root)
+-
+-        // Tombol kembali
+-        binding.ivBack.setOnClickListener {
+-            finish()
+-        }
+-
+-        // Ambil data dari intent
+-        val title = intent.getStringExtra("DOA_TITLE") ?: "Doa"
+-        val arabic = intent.getStringExtra("DOA_ARABIC") ?: ""
+-        val latin = intent.getStringExtra("DOA_LATIN") ?: ""
+-        val translation = intent.getStringExtra("DOA_TRANSLATION") ?: ""
+-        val imageResId = intent.getIntExtra("DOA_IMAGE", android.R.drawable.ic_menu_help)
+-
+-        // Tampilkan data
+-        binding.ivDoaImage.setImageResource(imageResId)
+-        binding.tvDoaTitle.text = title
+-        binding.tvArabic.text = arabic
+-        binding.tvLatin.text = latin
+-        binding.tvTranslation.text = translation
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/temandoaku/DoaListActivity.kt
+===================================================================
+diff --git a/app/src/main/java/com/temandoaku/DoaListActivity.kt b/app/src/main/java/com/temandoaku/DoaListActivity.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/temandoaku/DoaListActivity.kt	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ /dev/null	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
+@@ -1,90 +0,0 @@
+-package com.temandoaku
+-
+-import android.content.Intent
+-import androidx.appcompat.app.AppCompatActivity
+-import android.os.Bundle
+-import androidx.recyclerview.widget.LinearLayoutManager
+-import com.temandoaku.databinding.ActivityDoaListBinding
+-
+-class DoaListActivity : AppCompatActivity() {
+-
+-    private lateinit var binding: ActivityDoaListBinding
+-    private lateinit var sharedPrefManager: SharedPrefManager
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-
+-        binding = ActivityDoaListBinding.inflate(layoutInflater)
+-        setContentView(binding.root)
+-
+-        sharedPrefManager = SharedPrefManager(this)
+-
+-        // Tombol kembali
+-        binding.ivBack.setOnClickListener {
+-            finish()
+-        }
+-
+-        setupRecyclerView()
+-    }
+-
+-    private fun setupRecyclerView() {
+-        val readDoas = sharedPrefManager.getReadDoas()
+-
+-        // Buat adapter sederhana dulu
+-        val doaAdapter = object : androidx.recyclerview.widget.RecyclerView.Adapter<DoaViewHolder>() {
+-            override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): DoaViewHolder {
+-                val view = android.view.LayoutInflater.from(parent.context)
+-                    .inflate(R.layout.item_doa, parent, false)
+-                return DoaViewHolder(view)
+-            }
+-
+-            override fun onBindViewHolder(holder: DoaViewHolder, position: Int) {
+-                val doa = DataSource.doaList[position]
+-                holder.bind(doa, doa.id in readDoas)
+-
+-                holder.itemView.setOnClickListener {
+-                    // Tandai doa sebagai sudah dibaca
+-                    sharedPrefManager.markDoaAsRead(doa.id)
+-
+-                    // Navigasi ke detail doa
+-                    val intent = Intent(this@DoaListActivity, DoaDetailActivity::class.java).apply {
+-                        putExtra("DOA_ID", doa.id)
+-                        putExtra("DOA_TITLE", doa.title)
+-                        putExtra("DOA_ARABIC", doa.arabic)
+-                        putExtra("DOA_LATIN", doa.latin)
+-                        putExtra("DOA_TRANSLATION", doa.translation)
+-                        putExtra("DOA_IMAGE", doa.imageResId)
+-                    }
+-                    startActivity(intent)
+-                }
+-            }
+-
+-            override fun getItemCount() = DataSource.doaList.size
+-        }
+-
+-        binding.rvDoaList.apply {
+-            layoutManager = LinearLayoutManager(this@DoaListActivity)
+-            adapter = doaAdapter
+-            setHasFixedSize(true)
+-        }
+-    }
+-
+-    class DoaViewHolder(itemView: android.view.View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+-        private val tvTitle: android.widget.TextView = itemView.findViewById(R.id.tvTitle)
+-        private val tvCategory: android.widget.TextView = itemView.findViewById(R.id.tvCategory)
+-        private val tvArabicPreview: android.widget.TextView = itemView.findViewById(R.id.tvArabicPreview)
+-        private val ivRead: android.widget.ImageView = itemView.findViewById(R.id.ivRead)
+-
+-        fun bind(doa: Doa, isRead: Boolean) {
+-            tvTitle.text = doa.title
+-            tvCategory.text = doa.category
+-            tvArabicPreview.text = doa.arabic
+-
+-            if (isRead) {
+-                ivRead.visibility = android.view.View.VISIBLE
+-            } else {
+-                ivRead.visibility = android.view.View.INVISIBLE
+-            }
+-        }
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_check.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/ic_check.xml b/app/src/main/res/drawable/ic_check.xml
+new file mode 100644
+--- /dev/null	(date 1766990973348)
++++ b/app/src/main/res/drawable/ic_check.xml	(date 1766990973348)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24">
++
++    <path
++        android:fillColor="#FFFFFFFF"
++        android:pathData="M9,16.17L4.83,12l-1.42,1.41L9,19 21,7l-1.41,-1.41z"/>
++</vector>
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.TemanDoaku\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".AchievementActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".models.doa\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\"\r\n            android:theme=\"@style/Theme.TemanDoaku\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".DoaListActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".DoaDetailActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".MinigameActivity\"\r\n            android:exported=\"false\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/app/src/main/AndroidManifest.xml	(date 1766982760563)
+@@ -12,31 +12,32 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.TemanDoaku"
+         tools:targetApi="31">
+-        <activity
+-            android:name=".AchievementActivity"
+-            android:exported="false" />
+-        <activity
+-            android:name=".models.doa"
+-            android:exported="false" />
++
+         <activity
+             android:name=".MainActivity"
+-            android:exported="true"
+-            android:theme="@style/Theme.TemanDoaku">
++            android:exported="true">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+-
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
++
++        <activity
++            android:name=".ui.DoaListActivity"
++            android:exported="false" />
++
+         <activity
+-            android:name=".DoaListActivity"
++            android:name=".ui.DoaDetailActivity"
+             android:exported="false" />
++
+         <activity
+-            android:name=".DoaDetailActivity"
++            android:name=".AchievementActivity"
+             android:exported="false" />
++
+         <activity
+             android:name=".MinigameActivity"
+             android:exported="false" />
++
+     </application>
+ 
+-</manifest>
+\ No newline at end of file
++</manifest>
+Index: .idea/deviceManager.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DeviceTable\">\r\n    <option name=\"columnSorters\">\r\n      <list>\r\n        <ColumnSorterState>\r\n          <option name=\"column\" value=\"Name\" />\r\n          <option name=\"order\" value=\"ASCENDING\" />\r\n        </ColumnSorterState>\r\n      </list>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deviceManager.xml b/.idea/deviceManager.xml
+--- a/.idea/deviceManager.xml	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/.idea/deviceManager.xml	(date 1767011511885)
+@@ -4,6 +4,10 @@
+     <option name="columnSorters">
+       <list>
+         <ColumnSorterState>
++          <option name="column" value="Type" />
++          <option name="order" value="DESCENDING" />
++        </ColumnSorterState>
++        <ColumnSorterState>
+           <option name="column" value="Name" />
+           <option name="order" value="ASCENDING" />
+         </ColumnSorterState>
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"black\">#FF000000</color>\r\n    <color name=\"white\">#FFFFFFFF</color>\r\n    <color name=\"green_islamic\">#2E7D32</color>\r\n    <color name=\"cream\">#F7F3E9</color>\r\n    <color name=\"gold\">#C9A44C</color>\r\n    <color name=\"dark_text\">#2C2C2C</color>\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+--- a/app/src/main/res/values/colors.xml	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/app/src/main/res/values/colors.xml	(date 1766990934119)
+@@ -1,8 +1,9 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-    <color name="black">#FF000000</color>
++    <color name="black">#000000</color>
+     <color name="white">#FFFFFFFF</color>
+     <color name="green_islamic">#2E7D32</color>
++    <color name="green">#4CAF50</color>
+     <color name="cream">#F7F3E9</color>
+     <color name="gold">#C9A44C</color>
+     <color name="dark_text">#2C2C2C</color>
+Index: app/src/main/java/com/temandoaku/ui/DoaListActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/temandoaku/ui/DoaListActivity.kt b/app/src/main/java/com/temandoaku/ui/DoaListActivity.kt
+new file mode 100644
+--- /dev/null	(date 1766994592339)
++++ b/app/src/main/java/com/temandoaku/ui/DoaListActivity.kt	(date 1766994592339)
+@@ -0,0 +1,88 @@
++package com.temandoaku.ui
++
++import android.content.Intent
++import android.os.Bundle
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++import android.widget.ImageView
++import android.widget.TextView
++import androidx.appcompat.app.AppCompatActivity
++import androidx.recyclerview.widget.LinearLayoutManager
++import androidx.recyclerview.widget.RecyclerView
++import com.temandoaku.R
++import com.temandoaku.SharedPrefManager
++import com.temandoaku.data.AppDatabase
++import com.temandoaku.data.DoaEntity
++import com.temandoaku.databinding.ActivityDoaListBinding
++
++class DoaListActivity : AppCompatActivity() {
++
++    private lateinit var binding: ActivityDoaListBinding
++    private lateinit var sharedPrefManager: SharedPrefManager
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++
++        binding = ActivityDoaListBinding.inflate(layoutInflater)
++        setContentView(binding.root)
++
++        sharedPrefManager = SharedPrefManager(this)
++
++        binding.ivBack.setOnClickListener { finish() }
++
++        loadDoa()
++    }
++
++    private fun loadDoa() {
++        val dao = AppDatabase.getDatabase(this).doaDao()
++        val readDoas = sharedPrefManager.getReadDoas()
++
++        dao.getAllDoa().observe(this) { doaList ->
++            binding.rvDoaList.layoutManager = LinearLayoutManager(this)
++            binding.rvDoaList.adapter = DoaAdapter(doaList, readDoas)
++        }
++    }
++
++    inner class DoaAdapter(
++        private val doaList: List<DoaEntity>,
++        private val readDoas: Set<Int>
++    ) : RecyclerView.Adapter<DoaViewHolder>() {
++
++        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoaViewHolder {
++            val view = LayoutInflater.from(parent.context)
++                .inflate(R.layout.item_doa, parent, false)
++            return DoaViewHolder(view)
++        }
++
++        override fun onBindViewHolder(holder: DoaViewHolder, position: Int) {
++            val doa = doaList[position]
++            holder.bind(doa, doa.id in readDoas)
++
++            holder.itemView.setOnClickListener {
++                sharedPrefManager.markDoaAsRead(doa.id)
++
++                val intent = Intent(this@DoaListActivity, DoaDetailActivity::class.java)
++                intent.putExtra("DOA_TITLE", doa.judul)
++                intent.putExtra("DOA_ARABIC", doa.arab)
++                intent.putExtra("DOA_LATIN", doa.latin)
++                intent.putExtra("DOA_TRANSLATION", doa.arti)
++                intent.putExtra("DOA_IMAGE", doa.imageRes)
++                startActivity(intent)
++            }
++        }
++
++        override fun getItemCount() = doaList.size
++    }
++
++    class DoaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
++
++        private val tvJudul: TextView = itemView.findViewById(R.id.tvJudul)
++        private val ivRead: ImageView = itemView.findViewById(R.id.ivRead)
++
++        fun bind(doa: DoaEntity, isRead: Boolean) {
++            tvJudul.text = doa.judul
++            ivRead.visibility = if (isRead) View.VISIBLE else View.INVISIBLE
++        }
++    }
++}
+Index: app/src/main/java/com/temandoaku/ui/DoaDetailActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/temandoaku/ui/DoaDetailActivity.kt b/app/src/main/java/com/temandoaku/ui/DoaDetailActivity.kt
+new file mode 100644
+--- /dev/null	(date 1766994632458)
++++ b/app/src/main/java/com/temandoaku/ui/DoaDetailActivity.kt	(date 1766994632458)
+@@ -0,0 +1,37 @@
++package com.temandoaku.ui
++
++import android.os.Bundle
++import android.widget.ImageView
++import android.widget.TextView
++import androidx.appcompat.app.AppCompatActivity
++import com.temandoaku.R
++
++class DoaDetailActivity : AppCompatActivity() {
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        setContentView(R.layout.activity_doa_detail)
++
++        findViewById<TextView>(R.id.tvTitle).text =
++            intent.getStringExtra("DOA_TITLE")
++
++        findViewById<TextView>(R.id.tvArabic).text =
++            intent.getStringExtra("DOA_ARABIC")
++
++        findViewById<TextView>(R.id.tvLatin).text =
++            intent.getStringExtra("DOA_LATIN")
++
++        findViewById<TextView>(R.id.tvTranslation).text =
++            intent.getStringExtra("DOA_TRANSLATION")
++
++        val imageRes = intent.getIntExtra("DOA_IMAGE", 0)
++        if (imageRes != 0) {
++            findViewById<ImageView>(R.id.ivDoaImage).setImageResource(imageRes)
++        }
++
++        findViewById<ImageView>(R.id.ivBack).setOnClickListener {
++            finish()
++        }
++    }
++
++}
+Index: app/src/main/res/layout/item_doa.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.cardview.widget.CardView\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:layout_margin=\"12dp\"\r\n    app:cardCornerRadius=\"18dp\"\r\n    app:cardElevation=\"6dp\"\r\n    app:cardBackgroundColor=\"@color/cream\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\"\r\n        android:padding=\"16dp\">\r\n\r\n        <!-- Judul Doa -->\r\n        <TextView\r\n            android:id=\"@+id/tvJudul\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Masuk Rumah\"\r\n            android:textSize=\"18sp\"\r\n            android:textStyle=\"bold\"\r\n            android:textColor=\"@color/green_islamic\"/>\r\n\r\n        <!-- Teks Arab -->\r\n        <TextView\r\n            android:id=\"@+id/tvArab\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"12dp\"\r\n            android:text=\"بِسْمِ اللَّهِ وَلَجْنَا...\"\r\n            android:textSize=\"22sp\"\r\n            android:textColor=\"@color/dark_text\"\r\n            android:gravity=\"end\"\r\n            android:lineSpacingExtra=\"6dp\"/>\r\n\r\n        <!-- Latin -->\r\n        <TextView\r\n            android:id=\"@+id/tvLatin\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:text=\"Bismillahi walajnaa...\"\r\n            android:textStyle=\"italic\"\r\n            android:textColor=\"@color/dark_text\"/>\r\n\r\n        <!-- Arti -->\r\n        <TextView\r\n            android:id=\"@+id/tvArti\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:text=\"Dengan nama Allah kami masuk...\"\r\n            android:textColor=\"@color/dark_text\"/>\r\n\r\n    </LinearLayout>\r\n\r\n</androidx.cardview.widget.CardView>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/item_doa.xml b/app/src/main/res/layout/item_doa.xml
+--- a/app/src/main/res/layout/item_doa.xml	(revision bfafc5993800d536340ee17bef18e0f8c8056fc7)
++++ b/app/src/main/res/layout/item_doa.xml	(date 1766989878753)
+@@ -1,60 +1,38 @@
+-<?xml version="1.0" encoding="utf-8"?>
+ <androidx.cardview.widget.CardView
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_margin="12dp"
+-    app:cardCornerRadius="18dp"
+-    app:cardElevation="6dp"
+-    app:cardBackgroundColor="@color/cream">
++    app:cardCornerRadius="16dp"
++    app:cardElevation="4dp">
+ 
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+-        android:orientation="vertical"
+-        android:padding="16dp">
++        android:padding="16dp"
++        android:orientation="horizontal"
++        android:gravity="center_vertical">
+ 
+         <!-- Judul Doa -->
+         <TextView
+             android:id="@+id/tvJudul"
+-            android:layout_width="wrap_content"
++            android:layout_width="0dp"
+             android:layout_height="wrap_content"
++            android:layout_weight="1"
+             android:text="Masuk Rumah"
+             android:textSize="18sp"
+             android:textStyle="bold"
+-            android:textColor="@color/green_islamic"/>
+-
+-        <!-- Teks Arab -->
+-        <TextView
+-            android:id="@+id/tvArab"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="12dp"
+-            android:text="بِسْمِ اللَّهِ وَلَجْنَا..."
+-            android:textSize="22sp"
+-            android:textColor="@color/dark_text"
+-            android:gravity="end"
+-            android:lineSpacingExtra="6dp"/>
++            android:textColor="@color/black"/>
+ 
+-        <!-- Latin -->
+-        <TextView
+-            android:id="@+id/tvLatin"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="8dp"
+-            android:text="Bismillahi walajnaa..."
+-            android:textStyle="italic"
+-            android:textColor="@color/dark_text"/>
+-
+-        <!-- Arti -->
+-        <TextView
+-            android:id="@+id/tvArti"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="8dp"
+-            android:text="Dengan nama Allah kami masuk..."
+-            android:textColor="@color/dark_text"/>
++        <!-- Icon sudah dibaca -->
++        <ImageView
++            android:id="@+id/ivRead"
++            android:layout_width="20dp"
++            android:layout_height="20dp"
++            android:src="@drawable/ic_check"
++            app:tint="@color/green"
++            android:visibility="gone"/>
+ 
+     </LinearLayout>
+ 
