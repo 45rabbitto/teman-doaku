@@ -5,18 +5,20 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+<<<<<<< HEAD
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 import com.temandoaku.data.AppDatabase
 import com.temandoaku.data.DoaData
+=======
+>>>>>>> origin/main
 import com.temandoaku.databinding.ActivityMainBinding
 import com.temandoaku.ui.DoaListActivity
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var sharedPrefManager: SharedPrefManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+<<<<<<< HEAD
         // Room Database
         val dao = AppDatabase.getDatabase(this).doaDao()
 
@@ -45,11 +48,17 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, DoaListActivity::class.java))
         }
 
+=======
+        val scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up)
+        val scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down)
+
+>>>>>>> origin/main
         binding.cvGame.setOnClickListener {
             it.startAnimation(scaleUp)
             it.startAnimation(scaleDown)
             startActivity(Intent(this, MinigameActivity::class.java))
         }
+<<<<<<< HEAD
 
         binding.cvAchievement.setOnClickListener {
             it.startAnimation(scaleUp)
@@ -64,5 +73,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.tvStreak.visibility = View.GONE
         }
+=======
+>>>>>>> origin/main
     }
 }
