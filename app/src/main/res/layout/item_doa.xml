@@ -26,14 +26,6 @@
             android:textColor="@color/green_islamic"/>
 
         <ImageView
-            android:id="@+id/ivRead"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_check"
-            app:tint="@color/green"
-            android:visibility="gone"/>
-
-        <ImageView
             android:id="@+id/ivFavorite"
             android:layout_width="24dp"
             android:layout_height="24dp"

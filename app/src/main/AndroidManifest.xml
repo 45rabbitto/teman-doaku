@@ -15,9 +15,7 @@
         <activity
             android:name=".AchievementActivity"
             android:exported="false" />
-        <activity
-            android:name=".models.doa"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
