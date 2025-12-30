@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class DoaAdapter(
     private val list: MutableList<DoaEntity>,
-    private val readDoas: Secdt<Int>,
+    private val readDoas: Set<Int>,
     private val dao: DoaDao
 ) : RecyclerView.Adapter<DoaAdapter.DoaViewHolder>() {
 

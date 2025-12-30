@@ -11,33 +11,48 @@ class SambungAyatActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySambungAyatBinding
     private var index = 0
     private var score = 0
+
     private val questions = SambungAyatQuestions.questionsSambungAyat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivitySambungAyatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         showQuestion()
 
-        binding.btnOption1.setOnClickListener { onAnswerClicked(binding.btnOption1.text.toString()) }
-        binding.btnOption2.setOnClickListener { onAnswerClicked(binding.btnOption2.text.toString()) }
-        binding.btnOption3.setOnClickListener { onAnswerClicked(binding.btnOption3.text.toString()) }
-        binding.btnOption4.setOnClickListener { onAnswerClicked(binding.btnOption4.text.toString()) }
+        binding.btnA.setOnClickListener {
+            onAnswerClicked(binding.btnA.text.toString())
+        }
 
-        binding.ivBack.setOnClickListener { finish() }
+        binding.btnB.setOnClickListener {
+            onAnswerClicked(binding.btnB.text.toString())
+        }
+
+        binding.btnC.setOnClickListener {
+            onAnswerClicked(binding.btnC.text.toString())
+        }
+
+        binding.btnD.setOnClickListener {
+            onAnswerClicked(binding.btnD.text.toString())
+        }
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun showQuestion() {
-        val q = questions[index]
+        val question = questions[index]
 
-        binding.tvProgress.text = "${index + 1} / ${questions.size}"
-        binding.tvAyatSoal.text = q.question
+        binding.tvProgressSoal.text = "${index + 1} / ${questions.size}"
+        binding.tvSoalAyat.text = question.question
 
-        binding.btnOption1.text = q.options[0]
-        binding.btnOption2.text = q.options[1]
-        binding.btnOption3.text = q.options[2]
-        binding.btnOption4.text = q.options[3]
+        binding.btnA.text = question.options[0]
+        binding.btnB.text = question.options[1]
+        binding.btnC.text = question.options[2]
+        binding.btnD.text = question.options[3]
     }
 
     private fun onAnswerClicked(answer: String) {

@@ -3,9 +3,10 @@ package com.temandoaku.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.temandoaku.databinding.ActivityResultBinding
 import com.temandoaku.MainActivity
 import com.temandoaku.R
+import com.temandoaku.SharedPrefManager
+import com.temandoaku.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
 
@@ -13,11 +14,23 @@ class ResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Ambil skor dari intent
         val score = intent.getIntExtra("SCORE", 0)
+
+        // Shared Preference Manager
+        val sharedPrefManager = SharedPrefManager(this)
+
+        // Game dianggap sudah dimainkan
+        sharedPrefManager.incrementGamePlayed()
+
+        // Jika skor menang (>= 80) → game menang
+        if (score >= 80) {
+            sharedPrefManager.incrementGameWon()
+        }
 
         // Tampilkan skor
         binding.tvScore.text = "Skor: $score"
@@ -40,13 +53,13 @@ class ResultActivity : AppCompatActivity() {
 
         // Tombol Main Lagi
         binding.btnPlayAgain.setOnClickListener {
-            finish() // balik ke game sebelumnya
+            finish() // kembali ke game sebelumnya
         }
 
-        // Tombol Kembali ke Menu
+        // Tombol Kembali ke Menu Utama
         binding.btnBackToMenu.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             finish()
         }

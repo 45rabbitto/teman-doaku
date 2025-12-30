@@ -2,14 +2,13 @@
 <resources>
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
-<<<<<<< HEAD
+
     <color name="green_islamic">#2E7D32</color>
     <color name="cream">#F7F3E9</color>
     <color name="gold">#C9A44C</color>
     <color name="dark_text">#2C2C2C</color>
     <color name="green">#4CAF50</color>
 
-=======
+
     <color name="bg_main">#71D2E3</color>
->>>>>>> origin/main
 </resources>
