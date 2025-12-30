@@ -20,12 +20,3 @@ data class Achievement(
     var isUnlocked: Boolean = false,
     val type: String
 )
-
-// Model Puzzle untuk game
-data class Puzzle(
-    val id: Int,
-    val question: String,
-    val correctOrder: List<String>,
-    val parts: List<String>,
-    val ayat: String
-)

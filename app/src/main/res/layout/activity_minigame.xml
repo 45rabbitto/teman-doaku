@@ -3,22 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_main"
     android:orientation="vertical"
-    android:background="#FFF0F8FF"
     android:padding="16dp">
 
     <!-- Header -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="0dp"
-        app:cardBackgroundColor="#FFFF5722">
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        app:cardBackgroundColor="#9FE3FF"
+        app:cardUseCompatPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@drawable/button3_rounded"
             android:padding="16dp">
 
             <ImageView
@@ -26,93 +29,75 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@android:drawable/ic_menu_revert"
-                android:tint="@android:color/white"/>
+                android:tint="@android:color/white" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Mini Game Puzzle"
-                android:textSize="24sp"
+                android:gravity="center"
+                android:text="mini game"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Konten Game -->
-    <androidx.cardview.widget.CardView
+    <!-- Content -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
-        android:layout_marginTop="16dp">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="270dp"
+            android:layout_height="362dp"
+            android:layout_marginBottom="-40dp"
+            android:src="@drawable/game" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded"
             android:orientation="vertical"
-            android:padding="24dp"
-            android:background="@android:color/white"
-            android:gravity="center">
+            android:padding="20dp">
 
-            <TextView
-                android:id="@+id/tvQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pertanyaan:"
-                android:textSize="20sp"
-                android:textColor="#FF333333"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginBottom="32dp"/>
-
-            <TextView
-                android:id="@+id/tvAyatTarget"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="بِسْمِ اللهِ"
-                android:textSize="28sp"
-                android:textColor="#FF2E7D32"
-                android:gravity="center"
-                android:textDirection="rtl"
-                android:layout_marginBottom="48dp"
-                android:background="@drawable/bg_rounded"
-                android:padding="16dp"/>
-
-            <!-- Tombol pilihan -->
-            <Button
-                android:id="@+id/btnOption1"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Pilihan 1"
-                android:textSize="16sp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnTebakArti"
+                android:layout_width="320dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
-                android:backgroundTint="#FF4CAF50"/>
+                android:background="@drawable/button1_rounded"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="tebak arti"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnOption2"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Pilihan 2"
-                android:textSize="16sp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSambungAyat"
+                android:layout_width="320dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
-                android:backgroundTint="#FF2196F3"/>
-
-            <Button
-                android:id="@+id/btnOption3"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Pilihan 3"
-                android:textSize="16sp"
-                android:backgroundTint="#FF9C27B0"/>
+                android:background="@drawable/button2_rounded"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="sambung ayat"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </LinearLayout>
