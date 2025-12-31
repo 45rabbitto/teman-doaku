@@ -68,7 +68,7 @@ class DoaAdapter(
             intent.putExtra("DOA_ARABIC", doa.arab)
             intent.putExtra("DOA_LATIN", doa.latin)
             intent.putExtra("DOA_TRANSLATION", doa.arti)
-            intent.putExtra("imageRes", doa.imageRes)
+            intent.putExtra("DOA_IMAGE", doa.imageRes)
             context.startActivity(intent)
         }
     }

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header -->
+        <!-- HEADER -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@android:drawable/ic_menu_revert"
-                    android:tint="@android:color/white"/>
+                    android:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -40,17 +40,17 @@
                     android:textSize="20sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
-                    android:gravity="center"/>
+                    android:gravity="center" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Konten Detail Doa -->
+        <!-- KONTEN -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            android:layout_margin="16dp">
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,94 +59,93 @@
                 android:padding="24dp"
                 android:background="@android:color/white">
 
-                <!-- Gambar Ilustrasi -->
+                <!-- GAMBAR -->
                 <ImageView
                     android:id="@+id/ivDoaImage"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="24dp"
                     android:scaleType="centerCrop"
                     android:src="@android:drawable/ic_menu_help"
-                    android:tint="#FF4CAF50"
-                    android:layout_marginBottom="24dp"/>
+                    android:tint="#FF4CAF50" />
 
-                <!-- Judul Doa -->
+                <!-- JUDUL -->
                 <TextView
                     android:id="@+id/tvDoaTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Doa Sebelum Makan"
-                    android:textSize="24sp"
-                    android:textColor="#FF4CAF50"
-                    android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="16dp"
+                    android:text="Judul Doa"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF4CAF50" />
 
-                <!-- Bahasa Arab -->
+                <!-- ARAB -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Arab"
                     android:textSize="16sp"
-                    android:textColor="#FF333333"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#333333" />
 
                 <TextView
                     android:id="@+id/tvArabic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="بِسْمِ اللهِ"
-                    android:textSize="24sp"
-                    android:textColor="#FF2E7D32"
-                    android:textDirection="rtl"
-                    android:gravity="center"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="24dp"
-                    android:lineSpacingExtra="8dp"/>
+                    android:gravity="center"
+                    android:lineSpacingExtra="8dp"
+                    android:text="بِسْمِ اللهِ"
+                    android:textDirection="rtl"
+                    android:textSize="24sp"
+                    android:textColor="#FF2E7D32" />
 
-                <!-- Latin -->
+                <!-- LATIN -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Latin"
                     android:textSize="16sp"
-                    android:textColor="#FF333333"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#333333" />
 
                 <TextView
                     android:id="@+id/tvLatin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Bismillah"
-                    android:textSize="18sp"
-                    android:textColor="#FF666666"
-                    android:gravity="center"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="24dp"
-                    android:lineSpacingExtra="8dp"/>
+                    android:gravity="center"
+                    android:lineSpacingExtra="8dp"
+                    android:text="Bismillah"
+                    android:textSize="18sp"
+                    android:textColor="#666666" />
 
-                <!-- Terjemahan -->
+                <!-- TERJEMAHAN -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Terjemahan"
                     android:textSize="16sp"
-                    android:textColor="#FF333333"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#333333" />
 
                 <TextView
                     android:id="@+id/tvTranslation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="8dp"
                     android:text="Dengan nama Allah"
                     android:textSize="16sp"
-                    android:textColor="#FF666666"
-                    android:layout_marginTop="8dp"
-                    android:lineSpacingExtra="8dp"/>
+                    android:textColor="#666666" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-
 </ScrollView>
