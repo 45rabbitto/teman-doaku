@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permission untuk notifikasi -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,31 +17,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TemanDoaku"
         tools:targetApi="31">
-        <activity
-            android:name=".AchievementActivity"
-            android:exported="false" />
-        <activity
-            android:name=".models.doa"
-            android:exported="false" />
+
+        <!-- MAIN -->
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.TemanDoaku">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DoaListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DoaDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MinigameActivity"
-            android:exported="false" />
+
+        <!-- MENU -->
+        <activity android:name=".DoaListActivity" android:exported="false" />
+        <activity android:name=".DoaDetailActivity" android:exported="false" />
+        <activity android:name=".MinigameActivity" android:exported="false" />
+        <activity android:name=".AchievementActivity" android:exported="false" />
+
     </application>
 
 </manifest>
