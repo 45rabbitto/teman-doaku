@@ -94,7 +94,7 @@ object DoaData {
                 arab = "غُفْرَانَكَ",
                 latin = "Ghufrānak",
                 arti = "Aku memohon ampunan-Mu, ya Allah.",
-                imageRes = R.drawable.doa_keluar_wc
+                imageRes = R.drawable.doa_masuk_wc
             ),
 
             // 11. Masuk Masjid

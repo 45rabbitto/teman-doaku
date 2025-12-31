@@ -4,58 +4,50 @@
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TemanDoaku"
-        tools:targetApi="31">
+        android:theme="@style/Theme.TemanDoaku">
+
+        <activity
+            android:name=".ui.DoaListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.DoaDetailActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.ResultActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.SambungAyatActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.TebakArtiActivity"
             android:exported="false" />
+
         <activity
-            android:name=".GameQuestion"
+            android:name=".ui.AchievementActivity"
             android:exported="false" />
+
+
         <activity
-            android:name=".SambungAyatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TebakArtiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AchievementActivity"
+            android:name=".ui.MinigameActivity"
             android:exported="false" />
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.TemanDoaku">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.DoaListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.DoaDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MinigameActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MinigameActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

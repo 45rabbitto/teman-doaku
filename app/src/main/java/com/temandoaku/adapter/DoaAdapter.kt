@@ -21,28 +21,27 @@ class DoaAdapter(
     private val dao: DoaDao
 ) : RecyclerView.Adapter<DoaAdapter.DoaViewHolder>() {
 
+    // ================= VIEW HOLDER =================
     inner class DoaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvJudul: TextView = view.findViewById(R.id.tvJudul)
-        val ivRead: ImageView = view.findViewById(R.id.ivRead)
         val ivFavorite: ImageView = view.findViewById(R.id.ivFavorite)
     }
 
+    // ================= CREATE VIEW =================
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoaViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_doa, parent, false)
         return DoaViewHolder(view)
     }
 
+    // ================= BIND VIEW =================
     override fun onBindViewHolder(holder: DoaViewHolder, position: Int) {
         val doa = list[position]
 
+        // Judul doa
         holder.tvJudul.text = doa.judul
 
-        // ✔ tanda sudah dibaca
-        holder.ivRead.visibility =
-            if (doa.id in readDoas) View.VISIBLE else View.INVISIBLE
-
-        // ⭐ status favorit
+        // Status favorit
         holder.ivFavorite.setImageResource(
             if (doa.isFavorite)
                 R.drawable.ic_star_filled
@@ -50,7 +49,7 @@ class DoaAdapter(
                 R.drawable.ic_star_border
         )
 
-        // ⭐ klik favorit
+        // Klik ikon favorit
         holder.ivFavorite.setOnClickListener {
             val updated = doa.copy(isFavorite = !doa.isFavorite)
             list[position] = updated
@@ -61,7 +60,7 @@ class DoaAdapter(
             }
         }
 
-        // ➡ klik item ke detail
+        // Klik item ke detail doa
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, DoaDetailActivity::class.java)

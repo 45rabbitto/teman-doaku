@@ -7,10 +7,13 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+
 import com.temandoaku.data.AppDatabase
 import com.temandoaku.data.DoaData
 import com.temandoaku.databinding.ActivityMainBinding
 import com.temandoaku.ui.DoaListActivity
+import com.temandoaku.ui.MinigameActivity
+import com.temandoaku.ui.AchievementActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,17 +26,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Room Database
         val dao = AppDatabase.getDatabase(this).doaDao()
         lifecycleScope.launch {
             dao.insertAll(DoaData.getAll())
         }
 
-        // Shared Preference
         sharedPrefManager = SharedPrefManager(this)
         sharedPrefManager.updateLoginStreak()
 
-        // Animasi (HANYA SEKALI)
         val scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up)
         val scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down)
 
@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AchievementActivity::class.java))
         }
 
-        // Streak UI
         val streak = sharedPrefManager.getLoginStreak()
         if (streak > 0) {
             binding.tvStreak.text = "🔥 Streak: $streak hari"
