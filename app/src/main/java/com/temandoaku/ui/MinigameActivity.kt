@@ -3,9 +3,9 @@ package com.temandoaku.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.temandoaku.SambungAyatActivity
-import com.temandoaku.TebakArtiActivity
 import com.temandoaku.databinding.ActivityMinigameBinding
+import com.temandoaku.ui.SambungAyatActivity
+import com.temandoaku.ui.TebakArtiActivity
 
 class MinigameActivity : AppCompatActivity() {
 
@@ -22,12 +22,12 @@ class MinigameActivity : AppCompatActivity() {
             finish()
         }
 
-        // Pilihan Game 1: Tebak Arti
+        // Game 1: Tebak Arti
         binding.btnTebakArti.setOnClickListener {
             startActivity(Intent(this, TebakArtiActivity::class.java))
         }
 
-        // Pilihan Game 2: Sambung Ayat
+        // Game 2: Sambung Ayat
         binding.btnSambungAyat.setOnClickListener {
             startActivity(Intent(this, SambungAyatActivity::class.java))
         }

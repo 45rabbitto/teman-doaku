@@ -3,8 +3,9 @@ package com.temandoaku.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.temandoaku.data.SambungAyatQuestions
 import com.temandoaku.databinding.ActivitySambungAyatBinding
+import com.temandoaku.data.SambungAyatQuestions
+import com.temandoaku.ui.ResultActivity
 
 class SambungAyatActivity : AppCompatActivity() {
 
@@ -15,15 +16,16 @@ class SambungAyatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivitySambungAyatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         showQuestion()
 
-        binding.btnOption1.setOnClickListener { onAnswerClicked(binding.btnOption1.text.toString()) }
-        binding.btnOption2.setOnClickListener { onAnswerClicked(binding.btnOption2.text.toString()) }
-        binding.btnOption3.setOnClickListener { onAnswerClicked(binding.btnOption3.text.toString()) }
-        binding.btnOption4.setOnClickListener { onAnswerClicked(binding.btnOption4.text.toString()) }
+        binding.btnOption1.setOnClickListener { checkAnswer(binding.btnOption1.text.toString()) }
+        binding.btnOption2.setOnClickListener { checkAnswer(binding.btnOption2.text.toString()) }
+        binding.btnOption3.setOnClickListener { checkAnswer(binding.btnOption3.text.toString()) }
+        binding.btnOption4.setOnClickListener { checkAnswer(binding.btnOption4.text.toString()) }
 
         binding.ivBack.setOnClickListener { finish() }
     }
@@ -40,7 +42,7 @@ class SambungAyatActivity : AppCompatActivity() {
         binding.btnOption4.text = q.options[3]
     }
 
-    private fun onAnswerClicked(answer: String) {
+    private fun checkAnswer(answer: String) {
         if (answer == questions[index].correctAnswer) {
             score += 10
         }

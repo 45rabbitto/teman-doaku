@@ -4,77 +4,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:layout_margin="12dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/cream">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@android:color/white">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Doa Sebelum Makan"
-                android:textSize="18sp"
-                android:textColor="#FF333333"
-                android:textStyle="bold"/>
-
-            <ImageView
-                android:id="@+id/ivRead"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@android:drawable/checkbox_on_background"
-                android:tint="#FF4CAF50"
-                android:visibility="invisible"/>
-        </LinearLayout>
-
+        <!-- Judul Doa -->
         <TextView
-            android:id="@+id/tvCategory"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvJudul"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Harian"
-            android:textSize="14sp"
-            android:textColor="#FF9370DB"
-            android:layout_marginTop="4dp"/>
+            android:layout_weight="1"
+            android:text="Masuk Rumah"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/green_islamic"/>
 
-        <TextView
-            android:id="@+id/tvArabicPreview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="بِسْمِ اللهِ"
-            android:textSize="16sp"
-            android:textColor="#FF2E7D32"
-            android:layout_marginTop="8dp"
-            android:textDirection="rtl"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#FF9370DB"
-            android:layout_marginTop="12dp"
-            android:alpha="0.3"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ketuk untuk melihat detail →"
-            android:textSize="12sp"
-            android:textColor="#FF666666"
-            android:layout_marginTop="8dp"/>
-
+        <!-- Icon Favorite -->
+        <ImageButton
+            android:id="@+id/ivFavorite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_star_border"
+            app:tint="@color/green"
+            android:contentDescription="Tandai sebagai favorit"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -1,10 +1,12 @@
-package com.temandoaku
+package com.temandoaku.ui
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.temandoaku.R
+import com.temandoaku.SharedPrefManager
 import com.temandoaku.databinding.ActivityAchievementBinding
 
 class AchievementActivity : AppCompatActivity() {
