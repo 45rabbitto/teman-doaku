@@ -12,50 +12,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:padding="16dp">
 
         <!-- Judul Doa -->
         <TextView
             android:id="@+id/tvJudul"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Masuk Rumah"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/green_islamic"/>
 
-        <!-- Teks Arab -->
-        <TextView
-            android:id="@+id/tvArab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="بِسْمِ اللَّهِ وَلَجْنَا..."
-            android:textSize="22sp"
-            android:textColor="@color/dark_text"
-            android:gravity="end"
-            android:lineSpacingExtra="6dp"/>
-
-        <!-- Latin -->
-        <TextView
-            android:id="@+id/tvLatin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Bismillahi walajnaa..."
-            android:textStyle="italic"
-            android:textColor="@color/dark_text"/>
-
-        <!-- Arti -->
-        <TextView
-            android:id="@+id/tvArti"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Dengan nama Allah kami masuk..."
-            android:textColor="@color/dark_text"/>
-
+        <!-- Icon Favorite -->
+        <ImageButton
+            android:id="@+id/ivFavorite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_star_border"
+            app:tint="@color/green"
+            android:contentDescription="Tandai sebagai favorit"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

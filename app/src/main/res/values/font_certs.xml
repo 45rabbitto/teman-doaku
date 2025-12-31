@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="com_google_android_gms_fonts_certs">
+        <item>@null</item>
+    </array>
+
+    <array name="com_google_android_gms_fonts_certs_dev">
+        <item>@null</item>
+    </array>
+
+    <array name="com_google_android_gms_fonts_certs_prod">
+        <item>@null</item>
+    </array>
+
+</resources>

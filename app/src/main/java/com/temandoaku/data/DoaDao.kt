@@ -1,17 +1,24 @@
 package com.temandoaku.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
+
 
 @Dao
 interface DoaDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(doaList: List<DoaEntity>)
-
     @Query("SELECT * FROM doa")
-    fun getAllDoa(): LiveData<List<DoaEntity>>
+    suspend fun getAll(): List<DoaEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(list: List<DoaEntity>)
+
+    @Update
+    suspend fun update(doa: DoaEntity)
 }
+
+
+

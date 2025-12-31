@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.temandoaku.data.DataSource
+import com.temandoaku.data.Achievement
+
 
 class SharedPrefManager(private val context: Context) {
 
@@ -62,7 +65,8 @@ class SharedPrefManager(private val context: Context) {
         val currentTime = System.currentTimeMillis()
         val oneDay = 24 * 60 * 60 * 1000L
 
-        var streak = getLoginStreak()
+        var streak = if (getLoginStreak() == 0) 1 else getLoginStreak()
+
 
         if (lastLogin == 0L || currentTime - lastLogin > oneDay * 2) {
             // Reset streak jika lewat lebih dari 2 hari
@@ -87,9 +91,11 @@ class SharedPrefManager(private val context: Context) {
     // Achievement management
     fun unlockAchievement(achievementId: Int) {
         val unlocked = getUnlockedAchievements().toMutableSet()
-        unlocked.add(achievementId)
-        val unlockedJson = gson.toJson(unlocked)
-        sharedPref.edit().putString(KEY_UNLOCKED_ACHIEVEMENTS, unlockedJson).apply()
+        if (achievementId !in unlocked) {
+            unlocked.add(achievementId)
+            val unlockedJson = gson.toJson(unlocked)
+            sharedPref.edit().putString(KEY_UNLOCKED_ACHIEVEMENTS, unlockedJson).apply()
+        }
     }
 
     fun getUnlockedAchievements(): Set<Int> {
