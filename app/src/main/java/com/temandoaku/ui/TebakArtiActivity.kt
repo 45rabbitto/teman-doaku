@@ -4,44 +4,42 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.temandoaku.data.TebakArtiQuestions
-import com.temandoaku.databinding.ActivityGameBinding
+import com.temandoaku.databinding.ActivityTebakArtiBinding
 
 class TebakArtiActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityGameBinding
+    private lateinit var binding: ActivityTebakArtiBinding
     private var index = 0
     private var score = 0
     private val questions = TebakArtiQuestions.questions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityGameBinding.inflate(layoutInflater)
+
+        binding = ActivityTebakArtiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         showQuestion()
 
-        binding.btnOption1.setOnClickListener {
-            checkAnswer(binding.btnOption1.text.toString())
+        binding.btnOption1.setOnClickListener { checkAnswer(binding.btnOption1.text.toString()) }
+        binding.btnOption2.setOnClickListener { checkAnswer(binding.btnOption2.text.toString()) }
+        binding.btnOption3.setOnClickListener { checkAnswer(binding.btnOption3.text.toString()) }
+        binding.btnOption4.setOnClickListener { checkAnswer(binding.btnOption4.text.toString()) }
+
+        binding.btnFinish.setOnClickListener {
+            goToResult()
         }
 
-        binding.btnOption2.setOnClickListener {
-            checkAnswer(binding.btnOption2.text.toString())
-        }
-
-        binding.btnOption3.setOnClickListener {
-            checkAnswer(binding.btnOption3.text.toString())
-        }
-
-        binding.btnOption4.setOnClickListener {
-            checkAnswer(binding.btnOption4.text.toString())
+        binding.ivBack.setOnClickListener {
+            finish()
         }
     }
 
     private fun showQuestion() {
         val q = questions[index]
 
-        binding.tvQuestionNumber.text = "Soal ${index + 1} / ${questions.size}"
-        binding.tvQuestion.text = q.question
+        binding.tvProgress.text = "Soal ${index + 1} / ${questions.size}"
+        binding.tvAyatSoal.text = q.question
 
         binding.btnOption1.text = q.options[0]
         binding.btnOption2.text = q.options[1]
@@ -59,10 +57,13 @@ class TebakArtiActivity : AppCompatActivity() {
         if (index < questions.size) {
             showQuestion()
         } else {
-            val intent = Intent(this, ResultActivity::class.java)
-            intent.putExtra("SCORE", score)
-            startActivity(intent)
-            finish()
+            goToResult()
         }
+    }
+
+    private fun goToResult() {
+        val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra("SCORE", score)
+        startActivity(intent)
     }
 }

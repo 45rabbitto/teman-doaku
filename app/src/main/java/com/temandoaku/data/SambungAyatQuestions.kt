@@ -3,7 +3,8 @@ package com.temandoaku.data
 import com.temandoaku.models.GameQuestion
 
 object SambungAyatQuestions {
-    val questionsSambungAyat = listOf(
+
+    val questions = listOf(
 
         // 1. Masuk rumah
         GameQuestion(
@@ -101,19 +102,7 @@ object SambungAyatQuestions {
             correctAnswer = "أَسْأَلُكَ مِنْ فَضْلِكَ"
         ),
 
-        // 9. Akan tidur (variasi)
-        GameQuestion(
-            question = "بِاسْمِكَ",
-            options = listOf(
-                "اللَّهُمَّ أَمُوتُ",
-                "أَحْيَا",
-                "أَنَامُ",
-                "أَسْتَيْقِظُ"
-            ),
-            correctAnswer = "اللَّهُمَّ أَمُوتُ"
-        ),
-
-        // 10. Bangun tidur
+        // 9. Bangun tidur
         GameQuestion(
             question = "الْحَمْدُ لِلَّهِ",
             options = listOf(
@@ -123,6 +112,18 @@ object SambungAyatQuestions {
                 "مِنْ فَضْلِكَ"
             ),
             correctAnswer = "الَّذِي أَحْيَانَا"
-        )
+        ),
+
+        // 10. Jawaban ketika mendengar orang bersin
+        GameQuestion(
+            question = "يَرْحَمُكَ",
+            options = listOf(
+                "اللَّهُ",
+                "الرَّحْمٰنُ",
+                "رَبِّي",
+                "إِلٰهِي"
+        ),
+        correctAnswer = "اللَّهُ"
+    )
     )
 }

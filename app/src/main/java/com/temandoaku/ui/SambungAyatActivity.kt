@@ -3,16 +3,15 @@ package com.temandoaku.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.temandoaku.databinding.ActivitySambungAyatBinding
 import com.temandoaku.data.SambungAyatQuestions
-import com.temandoaku.ui.ResultActivity
+import com.temandoaku.databinding.ActivitySambungAyatBinding
 
 class SambungAyatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySambungAyatBinding
     private var index = 0
     private var score = 0
-    private val questions = SambungAyatQuestions.questionsSambungAyat
+    private val questions = SambungAyatQuestions.questions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +26,19 @@ class SambungAyatActivity : AppCompatActivity() {
         binding.btnOption3.setOnClickListener { checkAnswer(binding.btnOption3.text.toString()) }
         binding.btnOption4.setOnClickListener { checkAnswer(binding.btnOption4.text.toString()) }
 
-        binding.ivBack.setOnClickListener { finish() }
+         binding.btnFinish.setOnClickListener {
+            goToResult()
+        }
+
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun showQuestion() {
         val q = questions[index]
 
-        binding.tvProgress.text = "${index + 1} / ${questions.size}"
+        binding.tvProgress.text = "Soal ${index + 1} / ${questions.size}"
         binding.tvAyatSoal.text = q.question
 
         binding.btnOption1.text = q.options[0]
@@ -52,10 +57,13 @@ class SambungAyatActivity : AppCompatActivity() {
         if (index < questions.size) {
             showQuestion()
         } else {
-            val intent = Intent(this, ResultActivity::class.java)
-            intent.putExtra("SCORE", score)
-            startActivity(intent)
-            finish()
+            goToResult()
         }
+    }
+
+    private fun goToResult() {
+        val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra("SCORE", score)
+        startActivity(intent)
     }
 }

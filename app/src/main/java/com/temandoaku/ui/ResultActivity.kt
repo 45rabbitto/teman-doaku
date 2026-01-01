@@ -48,15 +48,17 @@ class ResultActivity : AppCompatActivity() {
 
         // Tombol Main Lagi
         binding.btnPlayAgain.setOnClickListener {
+            val intent = Intent(this, MinigameActivity::class.java)
+            startActivity(intent)
             finish() // kembali ke game sebelumnya
         }
 
         // Tombol Kembali ke Menu Utama
         binding.btnBackToMenu.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             finish()
         }
+
     }
 }
