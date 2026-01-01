@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#FFF0F8FF"
+    android:background="#00BCD4"
     android:padding="24dp">
 
     <!-- CARD RESULT -->
@@ -20,11 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:backgroundTint="#FFFFFF">
+
 
             <!-- ICON -->
             <ImageView
                 android:id="@+id/ivResult"
+                android:layout_margin="20dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/trophy"
@@ -72,7 +75,7 @@
                 android:text="Main Lagi"
                 android:backgroundTint="#FF2196F3"
                 android:textColor="@android:color/white"
-                android:layout_marginBottom="12dp" />
+                android:layout_margin="10dp" />
 
             <!-- BUTTON MENU -->
             <Button
@@ -81,7 +84,8 @@
                 android:layout_height="55dp"
                 android:text="Kembali ke Menu"
                 android:backgroundTint="#FF9E9E9E"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:layout_margin="10dp"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
