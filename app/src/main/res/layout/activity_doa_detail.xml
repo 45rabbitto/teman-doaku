@@ -7,6 +7,7 @@
     android:fillViewport="true">
 
     <LinearLayout
+        android:background="@drawable/bg_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -23,7 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:background="#FFB040">
 
                 <ImageView
                     android:id="@+id/ivBack"
@@ -37,6 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Detail Doa"
+                    android:fontFamily="@font/poppins_semibold"
                     android:textSize="20sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
@@ -81,12 +84,14 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"
                     android:text="Judul Doa"
+                    android:fontFamily="@font/poppins_regular"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="#FF4CAF50" />
 
                 <!-- ARAB -->
                 <TextView
+                    android:fontFamily="@font/poppins_semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Arab"
@@ -109,6 +114,7 @@
 
                 <!-- LATIN -->
                 <TextView
+                    android:fontFamily="@font/poppins_semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Latin"
@@ -117,6 +123,7 @@
                     android:textColor="#333333" />
 
                 <TextView
+                    android:fontFamily="@font/poppins_regular"
                     android:id="@+id/tvLatin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -130,6 +137,7 @@
 
                 <!-- TERJEMAHAN -->
                 <TextView
+                    android:fontFamily="@font/poppins_semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Terjemahan"
@@ -138,6 +146,7 @@
                     android:textColor="#333333" />
 
                 <TextView
+                    android:fontFamily="@font/poppins_regular"
                     android:id="@+id/tvTranslation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
