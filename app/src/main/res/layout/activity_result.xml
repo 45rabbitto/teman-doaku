@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#00BCD4"
+    android:background="@drawable/bg_main"
     android:padding="24dp">
 
     <!-- CARD RESULT -->
@@ -19,52 +19,52 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
-            android:backgroundTint="#FFFFFF">
+            android:bacground="ffffff"
+            android:orientation="vertical">
 
 
             <!-- ICON -->
             <ImageView
                 android:id="@+id/ivResult"
-                android:layout_margin="20dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/trophy"
-                android:layout_marginBottom="16dp" />
+                android:layout_margin="20dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/trophy" />
 
             <!-- TITLE -->
-            <!-- TITLE -->
             <TextView
-                android:text="Hasil Permainan"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="8dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Hasil Permainan"
+                android:textColor="#000000"
+                android:textSize="22sp" />
 
             <!-- SCORE -->
             <TextView
                 android:id="@+id/tvScore"
-                android:text="Skor: 0"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:textColor="#FF4CAF50"
-                android:layout_marginBottom="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Skor: 0"
+                android:textColor="#FF4CAF50"
+                android:textSize="32sp" />
 
             <!-- MESSAGE -->
             <TextView
                 android:id="@+id/tvMessage"
-                android:text="Mantap! 🎉"
-                android:textSize="16sp"
-                android:textColor="#555555"
-                android:gravity="center"
-                android:layout_marginBottom="24dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="Mantap! 🎉"
+                android:textColor="#555555"
+                android:textSize="16sp" />
 
 
             <!-- BUTTON MAIN LAGI -->
@@ -72,20 +72,22 @@
                 android:id="@+id/btnPlayAgain"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:text="Main Lagi"
+                android:layout_margin="10dp"
                 android:backgroundTint="#FF2196F3"
-                android:textColor="@android:color/white"
-                android:layout_margin="10dp" />
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Main Lagi"
+                android:textColor="@android:color/white" />
 
             <!-- BUTTON MENU -->
             <Button
                 android:id="@+id/btnBackToMenu"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:text="Kembali ke Menu"
+                android:layout_margin="10dp"
                 android:backgroundTint="#FF9E9E9E"
-                android:textColor="@android:color/white"
-                android:layout_margin="10dp"/>
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Kembali ke Menu"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
