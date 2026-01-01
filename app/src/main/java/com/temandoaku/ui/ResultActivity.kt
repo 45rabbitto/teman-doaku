@@ -27,11 +27,6 @@ class ResultActivity : AppCompatActivity() {
         // Game dianggap sudah dimainkan
         sharedPrefManager.incrementGamePlayed()
 
-        // Jika skor menang (>= 80) → game menang
-        if (score >= 80) {
-            sharedPrefManager.incrementGameWon()
-        }
-
         // Tampilkan skor
         binding.tvScore.text = "Skor: $score"
 

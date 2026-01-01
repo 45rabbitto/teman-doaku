@@ -10,6 +10,8 @@ object DataSource {
     )
 
     val achievements = listOf(
+
+        // Achievement 1
         Achievement(
             id = 1,
             title = "Awal yang Baik",
@@ -17,13 +19,8 @@ object DataSource {
             iconResId = R.drawable.ic_achievement_read,
             type = "DOA"
         ),
-        Achievement(
-            id = 2,
-            title = "Harian Lengkap",
-            description = "Membaca semua doa harian",
-            iconResId = R.drawable.ic_achievement_daily,
-            type = "DOA"
-        ),
+
+        // Achievement 3
         Achievement(
             id = 3,
             title = "Pemain Aktif",
@@ -31,6 +28,8 @@ object DataSource {
             iconResId = R.drawable.ic_achievement_game,
             type = "GAME"
         ),
+
+        // Achievement 4
         Achievement(
             id = 4,
             title = "Istiqomah",
@@ -38,19 +37,14 @@ object DataSource {
             iconResId = R.drawable.ic_achievement_streak,
             type = "STREAK"
         ),
+
+        // Achievement 5
         Achievement(
             id = 5,
             title = "Ahli Doa",
             description = "Membaca semua doa",
             iconResId = R.drawable.ic_achievement_all,
             type = "DOA"
-        ),
-        Achievement(
-            id = 6,
-            title = "Juara!",
-            description = "Menang game",
-            iconResId = R.drawable.ic_achievement_win,
-            type = "GAME"
         )
     )
 }

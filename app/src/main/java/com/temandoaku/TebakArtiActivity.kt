@@ -1,20 +1,28 @@
 package com.temandoaku
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.temandoaku.ui.ResultActivity
 
 class TebakArtiActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_tebak_arti)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val btnFinish = findViewById<Button>(R.id.btnFinish)
+
+        btnFinish.setOnClickListener {
+            val score = 80
+
+            val intent = Intent(
+                this@TebakArtiActivity,
+                ResultActivity::class.java
+            )
+            intent.putExtra("SCORE", score)
+            startActivity(intent)
         }
     }
 }
