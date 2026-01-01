@@ -34,15 +34,15 @@ class ResultActivity : AppCompatActivity() {
         when {
             score >= 80 -> {
                 binding.tvMessage.text = "MasyaAllah! Hebat sekali 🌟"
-                binding.ivResult.setImageResource(R.drawable.trophy_image)
+                binding.ivResult.setImageResource(R.drawable.trophy)
             }
             score >= 50 -> {
                 binding.tvMessage.text = "Bagus! Terus tingkatkan 👍"
-                binding.ivResult.setImageResource(R.drawable.medal_image)
+                binding.ivResult.setImageResource(R.drawable.medal)
             }
             else -> {
                 binding.tvMessage.text = "Ayo belajar lagi 💪"
-                binding.ivResult.setImageResource(R.drawable.try_again_image)
+                binding.ivResult.setImageResource(R.drawable.try_again)
             }
         }
 

@@ -9,6 +9,7 @@ import com.temandoaku.databinding.ActivityTebakArtiBinding
 class TebakArtiActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTebakArtiBinding
+
     private var index = 0
     private var score = 0
     private val questions = TebakArtiQuestions.questions
@@ -19,8 +20,10 @@ class TebakArtiActivity : AppCompatActivity() {
         binding = ActivityTebakArtiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // tampilkan soal pertama
         showQuestion()
 
+        // tombol jawaban
         binding.btnOption1.setOnClickListener { checkAnswer(binding.btnOption1.text.toString()) }
         binding.btnOption2.setOnClickListener { checkAnswer(binding.btnOption2.text.toString()) }
         binding.btnOption3.setOnClickListener { checkAnswer(binding.btnOption3.text.toString()) }
@@ -30,6 +33,7 @@ class TebakArtiActivity : AppCompatActivity() {
             goToResult()
         }
 
+        // tombol kembali
         binding.ivBack.setOnClickListener {
             finish()
         }
@@ -48,15 +52,21 @@ class TebakArtiActivity : AppCompatActivity() {
     }
 
     private fun checkAnswer(answer: String) {
+
+        // Tambah skor kalau benar
         if (answer == questions[index].correctAnswer) {
             score += 10
         }
 
+        // Next soal
         index++
 
+        // Kalau masih ada soal → tampilkan lagi
         if (index < questions.size) {
             showQuestion()
-        } else {
+        }
+        // Kalau sudah habis → buka halaman hasil
+        else {
             goToResult()
         }
     }
@@ -65,5 +75,8 @@ class TebakArtiActivity : AppCompatActivity() {
         val intent = Intent(this, ResultActivity::class.java)
         intent.putExtra("SCORE", score)
         startActivity(intent)
+
+        // supaya user tidak bisa kembali ke game dari tombol back
+        finish()
     }
 }

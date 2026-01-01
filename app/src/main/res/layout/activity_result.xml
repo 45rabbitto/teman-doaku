@@ -27,16 +27,19 @@
                 android:id="@+id/ivResult"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/piala"
+                android:src="@drawable/trophy"
                 android:layout_marginBottom="16dp" />
 
+            <!-- TITLE -->
             <!-- TITLE -->
             <TextView
                 android:text="Hasil Permainan"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="#000000"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <!-- SCORE -->
             <TextView
@@ -45,7 +48,9 @@
                 android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="#FF4CAF50"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <!-- MESSAGE -->
             <TextView
@@ -54,7 +59,10 @@
                 android:textSize="16sp"
                 android:textColor="#555555"
                 android:gravity="center"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
 
             <!-- BUTTON MAIN LAGI -->
             <Button
