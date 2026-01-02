@@ -19,5 +19,6 @@ data class DoaEntity(
     val imageRes: Int,
 
     @ColumnInfo(defaultValue = "0")
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val isRead: Boolean = false
 )
