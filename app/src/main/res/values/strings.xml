@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Teman Doaku</string>
+    <string name="judul_doa">Judul Doa</string>
+    <string name="gambar_doa">Gambar Doa</string>
+    <string name="favorite">Favorite</string>
 </resources>

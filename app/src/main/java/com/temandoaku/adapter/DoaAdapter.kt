@@ -38,10 +38,9 @@ class DoaAdapter(
     override fun onBindViewHolder(holder: DoaViewHolder, position: Int) {
         val doa = list[position]
 
-        // Judul doa
         holder.tvJudul.text = doa.judul
 
-        // Status favorit
+        // 🔥 TAMPILKAN GAMBAR DOA
         holder.ivFavorite.setImageResource(
             if (doa.isFavorite)
                 R.drawable.ic_star_filled
@@ -49,7 +48,6 @@ class DoaAdapter(
                 R.drawable.ic_star_border
         )
 
-        // Klik ikon favorit
         holder.ivFavorite.setOnClickListener {
             val updated = doa.copy(isFavorite = !doa.isFavorite)
             list[position] = updated
@@ -60,7 +58,6 @@ class DoaAdapter(
             }
         }
 
-        // Klik item ke detail doa
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, DoaDetailActivity::class.java)
@@ -72,6 +69,7 @@ class DoaAdapter(
             context.startActivity(intent)
         }
     }
+
 
     override fun getItemCount(): Int = list.size
 }
