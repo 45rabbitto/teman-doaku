@@ -34,12 +34,11 @@
         <activity android:name=".ui.TebakArtiActivity" android:exported="false" />
         <activity android:name=".ui.MinigameActivity" android:exported="false" />
         <activity android:name=".ui.AchievementActivity" android:exported="false" />
-
-        <!-- NOTIFICATION -->
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".reminder.AlarmReceiver"
             android:exported="false" />
 
-    </application>
+    </application
+        >
 
 </manifest>
