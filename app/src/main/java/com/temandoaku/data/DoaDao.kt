@@ -22,4 +22,8 @@ interface DoaDao {
 
     @Update
     suspend fun update(doa: DoaEntity)
+
+    @Query("SELECT COUNT(*) FROM doa")
+    suspend fun getCount(): Int
+
 }

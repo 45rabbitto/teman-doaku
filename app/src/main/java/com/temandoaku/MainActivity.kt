@@ -28,7 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         val dao = AppDatabase.getDatabase(this).doaDao()
         lifecycleScope.launch {
-            dao.insertAll(DoaData.getAll())
+            val count = dao.getCount()
+            if (count == 0) {
+                dao.insertAll(DoaData.getAll())
+            }
         }
 
         sharedPrefManager = SharedPrefManager(this)
