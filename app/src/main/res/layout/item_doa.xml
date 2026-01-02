@@ -11,7 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:background="#FFFFFF">
 
         <!-- Gambar Doa -->
         <ImageView
@@ -27,13 +28,14 @@
         <!-- Judul Doa (LIST SAJA) -->
         <TextView
             android:id="@+id/tvJudul"
+            android:textColor="#67C361"
+            android:fontFamily="@font/poppins_semibold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:text="Judul Doa"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@id/ivDoa"
             app:layout_constraintEnd_toStartOf="@id/ivFavorite"
             app:layout_constraintTop_toTopOf="parent"
