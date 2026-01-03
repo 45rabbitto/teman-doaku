@@ -6,11 +6,11 @@ object SambungAyatQuestions {
 
     val questions = listOf(
 
-        // 1. Masuk rumah
+        // 1. Masuk rumah (a)
         GameQuestion(
             question = "السَّلَامُ",
             options = listOf(
-                "عَلَيْكُمْ",
+                "عَلَيْكُمْ",      // a ✅
                 "اللَّهُ",
                 "لِلَّهِ",
                 "رَبِّ"
@@ -18,35 +18,35 @@ object SambungAyatQuestions {
             correctAnswer = "عَلَيْكُمْ"
         ),
 
-        // 2. Keluar rumah
+        // 2. Keluar rumah (d)
         GameQuestion(
             question = "بِسْمِ اللَّهِ",
             options = listOf(
-                "تَوَكَّلْتُ عَلَى اللَّهِ",
                 "الْحَمْدُ لِلَّهِ",
                 "أَعُوذُ بِكَ",
-                "اغْفِرْ لِي"
+                "اغْفِرْ لِي",
+                "تَوَكَّلْتُ عَلَى اللَّهِ" // d ✅
             ),
             correctAnswer = "تَوَكَّلْتُ عَلَى اللَّهِ"
         ),
 
-        // 3. Menjawab salam
+        // 3. Menjawab salam (b)
         GameQuestion(
             question = "وَعَلَيْكُمُ",
             options = listOf(
-                "السَّلَامُ",
                 "اللَّهُ",
+                "السَّلَامُ",     // b ✅
                 "الْحَمْدُ",
                 "رَبِّ"
             ),
             correctAnswer = "السَّلَامُ"
         ),
 
-        // 4. Sesudah makan
+        // 4. Sesudah makan (a)
         GameQuestion(
             question = "الْحَمْدُ لِلَّهِ",
             options = listOf(
-                "الَّذِي أَطْعَمَنَا",
+                "الَّذِي أَطْعَمَنَا", // a ✅
                 "رَبِّ الْعَالَمِينَ",
                 "عَلَيْكُمْ",
                 "إِلَّا اللَّهُ"
@@ -54,35 +54,35 @@ object SambungAyatQuestions {
             correctAnswer = "الَّذِي أَطْعَمَنَا"
         ),
 
-        // 5. Masuk WC
+        // 5. Masuk WC (c)
         GameQuestion(
             question = "اللَّهُمَّ إِنِّي",
             options = listOf(
-                "أَعُوذُ بِكَ",
                 "تَوَكَّلْتُ عَلَى اللَّهِ",
-                "اغْفِرْ لِي",
-                "أَشْهَدُ أَنْ"
+                "أَشْهَدُ أَنْ",
+                "أَعُوذُ بِكَ",   // c ✅
+                "اغْفِرْ لِي"
             ),
             correctAnswer = "أَعُوذُ بِكَ"
         ),
 
-        // 6. Akan tidur
+        // 6. Akan tidur (d)
         GameQuestion(
             question = "بِاسْمِكَ",
             options = listOf(
-                "أَمُوتُ",
                 "أَحْيَا",
                 "أَنَامُ",
-                "أَسْتَيْقِظُ"
+                "أَسْتَيْقِظُ",
+                "أَمُوتُ"        // d ✅
             ),
             correctAnswer = "أَمُوتُ"
         ),
 
-        // 7. Birrul walidain
+        // 7. Birrul walidain (a)
         GameQuestion(
             question = "رَبِّ اغْفِرْ",
             options = listOf(
-                "لِي وَلِوَالِدَيَّ",
+                "لِي وَلِوَالِدَيَّ", // a ✅
                 "لَنَا ذُنُوبَنَا",
                 "لِي ذَنْبِي",
                 "لِلْمُؤْمِنِينَ"
@@ -90,40 +90,40 @@ object SambungAyatQuestions {
             correctAnswer = "لِي وَلِوَالِدَيَّ"
         ),
 
-        // 8. Keluar masjid
+        // 8. Keluar masjid (b)
         GameQuestion(
             question = "اللَّهُمَّ إِنِّي",
             options = listOf(
-                "أَسْأَلُكَ مِنْ فَضْلِكَ",
-                "أَعُوذُ بِكَ",
                 "اغْفِرْ لِي",
+                "أَسْأَلُكَ مِنْ فَضْلِكَ", // b ✅
+                "أَعُوذُ بِكَ",
                 "تَوَكَّلْتُ"
             ),
             correctAnswer = "أَسْأَلُكَ مِنْ فَضْلِكَ"
         ),
 
-        // 9. Bangun tidur
+        // 9. Bangun tidur (c)
         GameQuestion(
             question = "الْحَمْدُ لِلَّهِ",
             options = listOf(
-                "الَّذِي أَحْيَانَا",
                 "رَبِّ الْعَالَمِينَ",
-                "الَّذِي أَطْعَمَنَا",
-                "مِنْ فَضْلِكَ"
+                "مِنْ فَضْلِكَ",
+                "الَّذِي أَحْيَانَا", // c ✅
+                "الَّذِي أَطْعَمَنَا"
             ),
             correctAnswer = "الَّذِي أَحْيَانَا"
         ),
 
-        // 10. Jawaban ketika mendengar orang bersin
+        // 10. Jawaban ketika mendengar orang bersin (d)
         GameQuestion(
             question = "يَرْحَمُكَ",
             options = listOf(
-                "اللَّهُ",
                 "الرَّحْمٰنُ",
                 "رَبِّي",
-                "إِلٰهِي"
-        ),
-        correctAnswer = "اللَّهُ"
-    )
+                "إِلٰهِي",
+                "اللَّهُ"        // d ✅
+            ),
+            correctAnswer = "اللَّهُ"
+        )
     )
 }

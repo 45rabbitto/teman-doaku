@@ -27,8 +27,9 @@ object NotificationHelper {
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("Teman teman 🤍")
+            .setContentTitle("Teman Doaku 🤍")
             .setContentText("Jangan lupa doa hari ini ya")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .build()
 
