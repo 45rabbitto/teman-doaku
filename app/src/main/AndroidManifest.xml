@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
@@ -16,7 +17,7 @@
         android:theme="@style/Theme.TemanDoaku"
         tools:targetApi="31">
 
-        <!-- MAIN / HOME -->
+        <!-- MAIN -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -26,45 +27,20 @@
             </intent-filter>
         </activity>
 
-        <!-- MENU MINIGAME -->
-        <activity
-            android:name=".ui.MinigameActivity"
-            android:exported="false" />
-
-        <!-- GAME SAMBUNG AYAT -->
-        <activity
-            android:name=".ui.SambungAyatActivity"
-            android:exported="false" />
-
-        <!-- GAME TEBAK ARTI -->
-        <activity
-            android:name=".ui.TebakArtiActivity"
-            android:exported="false" />
-
-        <!-- RESULT SCORE -->
-        <activity
-            android:name=".ui.ResultActivity"
-            android:exported="false" />
-
-        <!-- ACHIEVEMENT / TROPHY -->
-        <activity
-            android:name=".ui.AchievementActivity"
-            android:exported="false" />
-
-        <!-- DOA LIST -->
-        <activity
-            android:name=".ui.DoaListActivity"
-            android:exported="false" />
-
-        <!-- DOA DETAIL -->
-        <activity
-            android:name=".ui.DoaDetailActivity"
-            android:exported="false" />
+        <!-- MENU & FEATURES -->
+        <activity android:name=".ui.DoaListActivity" android:exported="false" />
+        <activity android:name=".ui.DoaDetailActivity" android:exported="false" />
+        <activity android:name=".ui.ResultActivity" android:exported="false" />
+        <activity android:name=".ui.SambungAyatActivity" android:exported="false" />
+        <activity android:name=".ui.TebakArtiActivity" android:exported="false" />
+        <activity android:name=".ui.MinigameActivity" android:exported="false" />
+        <activity android:name=".ui.AchievementActivity" android:exported="false" />
 
         <!-- NOTIFICATION -->
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".reminder.AlarmReceiver"
             android:exported="false" />
+
 
     </application>
 

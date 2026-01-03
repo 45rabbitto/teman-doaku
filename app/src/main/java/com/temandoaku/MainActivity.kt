@@ -14,6 +14,7 @@ import com.temandoaku.databinding.ActivityMainBinding
 import com.temandoaku.ui.DoaListActivity
 import com.temandoaku.ui.MinigameActivity
 import com.temandoaku.ui.AchievementActivity
+import com.temandoaku.reminder.ReminderHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,9 +27,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 🔔 PASANG ALARM NOTIFIKASI (WAJIB)
+        ReminderHelper.setDailyReminder(this)
+
         val dao = AppDatabase.getDatabase(this).doaDao()
         lifecycleScope.launch {
-            dao.insertAll(DoaData.getAll())
+            val count = dao.getCount()
+            if (count == 0) {
+                dao.insertAll(DoaData.getAll())
+            }
         }
 
         sharedPrefManager = SharedPrefManager(this)

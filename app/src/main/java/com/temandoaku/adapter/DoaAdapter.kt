@@ -38,10 +38,9 @@ class DoaAdapter(
     override fun onBindViewHolder(holder: DoaViewHolder, position: Int) {
         val doa = list[position]
 
-        // Judul doa
         holder.tvJudul.text = doa.judul
 
-        // Status favorit
+        // 🔥 TAMPILKAN GAMBAR DOA
         holder.ivFavorite.setImageResource(
             if (doa.isFavorite)
                 R.drawable.ic_star_filled
@@ -49,7 +48,6 @@ class DoaAdapter(
                 R.drawable.ic_star_border
         )
 
-        // Klik ikon favorit
         holder.ivFavorite.setOnClickListener {
             val updated = doa.copy(isFavorite = !doa.isFavorite)
             list[position] = updated
@@ -60,18 +58,42 @@ class DoaAdapter(
             }
         }
 
-        // Klik item ke detail doa
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            val intent = Intent(context, DoaDetailActivity::class.java)
-            intent.putExtra("DOA_TITLE", doa.judul)
-            intent.putExtra("DOA_ARABIC", doa.arab)
-            intent.putExtra("DOA_LATIN", doa.latin)
-            intent.putExtra("DOA_TRANSLATION", doa.arti)
-            intent.putExtra("DOA_IMAGE", doa.imageRes)
-            context.startActivity(intent)
+
+            CoroutineScope(Dispatchers.IO).launch {
+                // 1️⃣ Tandai doa dibaca
+                dao.markAsRead(doa.id)
+
+                // 2️⃣ Cek sisa doa belum dibaca
+                val unreadCount = dao.getUnreadCount()
+
+                // 3️⃣ Kembali ke Main Thread
+                CoroutineScope(Dispatchers.Main).launch {
+
+                    if (unreadCount == 0) {
+                        // 🎉 SEMUA DOA SUDAH DIBACA → KE PENCAPAIAN
+                        val intent = Intent(
+                            context,
+                            com.temandoaku.ui.AchievementActivity::class.java
+                        )
+                        context.startActivity(intent)
+
+                    } else {
+                        // 📖 MASIH ADA → KE DETAIL DOA
+                        val context = holder.itemView.context
+                        val intent = Intent(context, DoaDetailActivity::class.java)
+                        intent.putExtra("DOA_ID", doa.id)
+                        intent.putExtra("DOA_TITLE", doa.judul)
+                        intent.putExtra("DOA_ARABIC", doa.arab)
+                        intent.putExtra("DOA_LATIN", doa.latin)
+                        intent.putExtra("DOA_TRANSLATION", doa.arti)
+                        intent.putExtra("DOA_IMAGE", doa.imageRes)
+                        context.startActivity(intent)
+                    }
+                }
+            }
         }
     }
-
-    override fun getItemCount(): Int = list.size
+        override fun getItemCount(): Int = list.size
 }

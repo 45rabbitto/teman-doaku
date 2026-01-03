@@ -19,3 +19,17 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Room
+-keep class androidx.room.** { *; }
+-keep class * extends androidx.room.RoomDatabase
+-keep @androidx.room.* class *
+
+# Gson
+-keep class com.google.gson.** { *; }
+-keep class * {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
+
+# Activity
+-keep class com.temandoaku.** { *; }

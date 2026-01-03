@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("org.jetbrains.kotlin.kapt")// 🔥 WAJIB untuk Room
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -20,16 +20,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
     }
 
     compileOptions {

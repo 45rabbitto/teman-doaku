@@ -51,6 +51,9 @@ class AchievementActivity : AppCompatActivity() {
             val tvDescription = achievementView.findViewById<TextView>(R.id.tvDescription)
             val ivIcon = achievementView.findViewById<ImageView>(R.id.ivIcon)
             val tvLocked = achievementView.findViewById<TextView>(R.id.tvLocked)
+            val readCount = sharedPrefManager.getReadDoas().size
+            binding.tvDoaRead.text = "Doa dibaca: $readCount"
+
 
             tvTitle.text = achievement.title
             tvDescription.text = achievement.description
