@@ -35,6 +35,9 @@
         <activity android:name=".ui.TebakArtiActivity" android:exported="false" />
         <activity android:name=".ui.MinigameActivity" android:exported="false" />
         <activity android:name=".ui.AchievementActivity" android:exported="false" />
+        <activity android:name=".ui.DoaPopupActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
 
         <!-- NOTIFICATION -->
         <receiver

@@ -15,6 +15,8 @@ import com.temandoaku.ui.DoaListActivity
 import com.temandoaku.ui.MinigameActivity
 import com.temandoaku.ui.AchievementActivity
 import com.temandoaku.reminder.ReminderHelper
+import com.temandoaku.reminder.NotificationHelper
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +30,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 🔔 PASANG ALARM NOTIFIKASI (WAJIB)
-        ReminderHelper.setDailyReminder(this)
+        ReminderHelper.setHourlyReminder(this)
+        NotificationHelper.showNotification(this)
+
 
         val dao = AppDatabase.getDatabase(this).doaDao()
         lifecycleScope.launch {

@@ -8,12 +8,13 @@ import android.util.Log
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
-        Log.d("ALARM_TEST", "AlarmReceiver terpanggil")
 
+        Log.d("ALARM_TEST", "Alarm diterima")
+
+        // tampilkan notifikasi
         NotificationHelper.showNotification(context)
 
-        // set ulang alarm untuk besok
-        ReminderHelper.setDailyReminder(context)
+        // SET ULANG alarm → bikin loop 1 jam
+        ReminderHelper.setHourlyReminder(context)
     }
 }
-
