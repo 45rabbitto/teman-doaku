@@ -9,10 +9,10 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari بِسْمِ اللهِ adalah?",
             options = listOf(
-                "Dengan nama Allah",
                 "Segala puji bagi Allah",
-                "Allah Maha Besar",
-                "Allah Maha Pengasih"
+                "Dengan nama Allah",
+                "Allah Maha Pengasih",
+                "Allah Maha Besar"
             ),
             correctAnswer = "Dengan nama Allah"
         ),
@@ -20,10 +20,10 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari الْحَمْدُ لِلَّهِ adalah?",
             options = listOf(
-                "Segala puji bagi Allah",
-                "Dengan nama Allah",
                 "Allah Maha Besar",
-                "Ya Allah ampunilah"
+                "Segala puji bagi Allah",
+                "Ya Allah ampunilah",
+                "Dengan nama Allah"
             ),
             correctAnswer = "Segala puji bagi Allah"
         ),
@@ -31,9 +31,9 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari السَّلَامُ عَلَيْكُمْ adalah?",
             options = listOf(
-                "Semoga keselamatan atas kalian",
-                "Semoga Allah memberkahi",
                 "Segala puji bagi Allah",
+                "Semoga Allah memberkahi",
+                "Semoga keselamatan atas kalian",
                 "Allah Maha Mendengar"
             ),
             correctAnswer = "Semoga keselamatan atas kalian"
@@ -42,10 +42,10 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari وَعَلَيْكُمُ السَّلَامُ adalah?",
             options = listOf(
-                "Dan atas kalian keselamatan",
+                "Allah Maha Besar",
                 "Dengan nama Allah",
-                "Segala puji bagi Allah",
-                "Allah Maha Besar"
+                "Dan atas kalian keselamatan",
+                "Segala puji bagi Allah"
             ),
             correctAnswer = "Dan atas kalian keselamatan"
         ),
@@ -53,9 +53,9 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari رَبِّ اغْفِرْ لِي adalah?",
             options = listOf(
-                "Wahai Tuhanku ampunilah aku",
-                "Wahai Tuhanku berilah rezeki",
                 "Ya Allah lindungi aku",
+                "Wahai Tuhanku berilah rezeki",
+                "Wahai Tuhanku ampunilah aku",
                 "Ya Allah berkahi aku"
             ),
             correctAnswer = "Wahai Tuhanku ampunilah aku"
@@ -64,10 +64,10 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari اللَّهُمَّ إِنِّي adalah?",
             options = listOf(
-                "Ya Allah sesungguhnya aku",
-                "Ya Allah Maha Besar",
                 "Ya Allah Maha Pengasih",
-                "Ya Allah Maha Mendengar"
+                "Ya Allah sesungguhnya aku",
+                "Ya Allah Maha Mendengar",
+                "Ya Allah Maha Besar"
             ),
             correctAnswer = "Ya Allah sesungguhnya aku"
         ),
@@ -75,10 +75,10 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari أَعُوذُ بِكَ adalah?",
             options = listOf(
+                "Aku meminta rezeki",
                 "Aku berlindung kepada-Mu",
-                "Aku berserah diri",
                 "Aku memohon ampun",
-                "Aku meminta rezeki"
+                "Aku berserah diri"
             ),
             correctAnswer = "Aku berlindung kepada-Mu"
         ),
@@ -86,10 +86,10 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari لَا إِلٰهَ adalah?",
             options = listOf(
-                "Tidak ada Tuhan",
-                "Segala puji",
                 "Dengan nama",
-                "Allah Maha"
+                "Tidak ada Tuhan",
+                "Allah Maha",
+                "Segala puji"
             ),
             correctAnswer = "Tidak ada Tuhan"
         ),
@@ -97,10 +97,10 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari إِلَّا اللَّهُ adalah?",
             options = listOf(
+                "Maha Besar",
                 "Selain Allah",
                 "Yang Maha Esa",
-                "Maha Pengasih",
-                "Maha Besar"
+                "Maha Pengasih"
             ),
             correctAnswer = "Selain Allah"
         ),
@@ -108,10 +108,10 @@ object TebakArtiQuestions {
         GameQuestion(
             question = "Arti dari بِاسْمِكَ adalah?",
             options = listOf(
-                "Dengan nama-Mu",
-                "Dengan kuasa-Mu",
+                "Dengan rahmat-Mu",
                 "Dengan izin-Mu",
-                "Dengan rahmat-Mu"
+                "Dengan nama-Mu",
+                "Dengan kuasa-Mu"
             ),
             correctAnswer = "Dengan nama-Mu"
         )
