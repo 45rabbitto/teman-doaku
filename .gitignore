@@ -1,5 +1,4 @@
-# Android Studio / IntelliJ
-.idea/
+# Android Studio
 *.iml
 
 # Gradle
